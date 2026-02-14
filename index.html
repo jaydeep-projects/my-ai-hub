@@ -6,81 +6,68 @@
     <title>JAYEEP AI HUB - 500+ Premium Tools</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .tool-card:hover { transform: translateY(-5px); transition: 0.3s; }
-        #ad-slot { min-height: 100px; background: #f3f4f6; border: 1px dashed #ccc; margin: 10px 0; }
+        .loader { border-top-color: #3498db; animation: spinner 1.5s linear infinite; }
+        @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body class="bg-gray-100 font-sans">
-
     <header class="bg-blue-600 text-white p-6 text-center shadow-lg">
         <h1 class="text-3xl font-bold">JAYEEP AI HUB</h1>
         <p class="mt-2 text-blue-100">500+ Premium Tools for Free</p>
     </header>
 
-    <div id="ad-slot" class="container mx-auto text-center flex items-center justify-center">
-        <p class="text-gray-400 text-sm">Ad Placement (Adsterra Code Yahan Ayega)</p>
-    </div>
-
     <main class="container mx-auto p-4">
+        <div class="bg-gray-200 p-4 mb-6 text-center rounded border-2 border-dashed border-gray-400">
+            <p class="text-gray-500">AD PLACEMENT - 1 (Adsterra Code Here)</p>
+        </div>
+
         <section class="bg-white p-6 rounded-xl shadow-md mb-8">
-            <h2 class="text-xl font-bold mb-4">✨ Instant AI Image Generator (Free GPU)</h2>
-            <div class="flex flex-col md:flex-row gap-4">
-                <input id="prompt" type="text" placeholder="Describe your image (e.g. A lion in a suit)..." class="flex-1 p-3 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
-                <button onclick="generateImage()" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700">Generate</button>
+            <h2 class="text-xl font-bold mb-4 text-center">✨ AI Image Generator</h2>
+            <div class="flex flex-col gap-4">
+                <input id="prompt" type="text" placeholder="Describe your image..." class="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
+                <button onclick="generateImage()" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700">Generate Image</button>
             </div>
+
+            <div id="loading" class="mt-6 text-center hidden">
+                <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4 mx-auto"></div>
+                <p class="text-blue-600 font-bold">AI is Processing your request... Wait 5 seconds</p>
+            </div>
+
             <div id="result" class="mt-6 text-center hidden">
                 <img id="ai-image" src="" alt="AI Result" class="mx-auto rounded-lg shadow-lg max-w-full h-auto">
-                <a id="download-btn" href="#" download="ai_image.jpg" class="inline-block mt-4 bg-green-500 text-white px-4 py-2 rounded">Download Image</a>
+                <a id="download-btn" href="#" download="ai_image.jpg" class="inline-block mt-4 bg-green-500 text-white px-6 py-2 rounded-lg font-bold">Save to Gallery</a>
             </div>
         </section>
 
-        <div class="mb-6">
-            <input type="text" placeholder="Search 500+ tools (Face Swap, Voice AI...)" class="w-full p-4 rounded-lg border shadow-sm">
-        </div>
-
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="tool-card bg-white p-4 rounded-lg shadow text-center cursor-pointer">
-                <div class="text-3xl mb-2">🎭</div>
-                <h3 class="font-semibold">Face Swap</h3>
-                <span class="text-xs text-green-500 font-bold">PRO FREE</span>
-            </div>
-            <div class="tool-card bg-white p-4 rounded-lg shadow text-center cursor-pointer">
-                <div class="text-3xl mb-2">🎥</div>
-                <h3 class="font-semibold">Text to Video</h3>
-                <span class="text-xs text-green-500 font-bold">PRO FREE</span>
-            </div>
-            <div class="tool-card bg-white p-4 rounded-lg shadow text-center cursor-pointer">
-                <div class="text-3xl mb-2">✂️</div>
-                <h3 class="font-semibold">Object Remover</h3>
-                <span class="text-xs text-green-500 font-bold">PRO FREE</span>
-            </div>
-            <div class="tool-card bg-white p-4 rounded-lg shadow text-center cursor-pointer">
-                <div class="text-3xl mb-2">🔊</div>
-                <h3 class="font-semibold">Voice Cloner</h3>
-                <span class="text-xs text-green-500 font-bold">PRO FREE</span>
-            </div>
+        <div class="bg-gray-200 p-4 text-center rounded border-2 border-dashed border-gray-400">
+            <p class="text-gray-500">AD PLACEMENT - 2 (Adsterra Code Here)</p>
         </div>
     </main>
-
-    <div id="ad-slot" class="container mx-auto text-center flex items-center justify-center mt-10">
-        <p class="text-gray-400 text-sm">Bottom Ad Placement</p>
-    </div>
 
     <script>
         function generateImage() {
             const prompt = document.getElementById('prompt').value;
+            const loading = document.getElementById('loading');
             const resultDiv = document.getElementById('result');
             const aiImage = document.getElementById('ai-image');
-            const downloadBtn = document.getElementById('download-btn');
 
-            if(!prompt) { alert("Please enter something!"); return; }
+            if(!prompt) { alert("Bhai, kuch likho toh sahi!"); return; }
 
-            // Pollinations API (No GPU needed on your side)
+            // Show Loading, Hide Result
+            loading.classList.remove('hidden');
+            resultDiv.classList.add('hidden');
+
             const imageUrl = `https://pollinations.ai/p/${encodeURIComponent(prompt)}?width=1024&height=1024&seed=${Math.floor(Math.random() * 1000000)}`;
             
-            aiImage.src = imageUrl;
-            downloadBtn.href = imageUrl;
-            resultDiv.classList.remove('hidden');
+            // Image load hone ka wait karein
+            const tempImg = new Image();
+            tempImg.src = imageUrl;
+            tempImg.onload = function() {
+                aiImage.src = imageUrl;
+                document.getElementById('download-btn').href = imageUrl;
+                loading.classList.add('hidden'); // Processing hat gaya
+                resultDiv.classList.remove('hidden'); // Photo dikh gayi
+            };
         }
     </script>
 </body>
