@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAYEEP AI HUB - 500+ Premium Tools</title>
+    <title>JAYEEP AI HUB</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .loader { border-top-color: #3498db; animation: spinner 1.5s linear infinite; }
-        @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loader { border: 5px solid #f3f3f3; border-top: 5px solid #3498db; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body class="bg-gray-100 font-sans">
@@ -16,57 +16,53 @@
         <p class="mt-2 text-blue-100">500+ Premium Tools for Free</p>
     </header>
 
-    <main class="container mx-auto p-4">
-        <div class="bg-gray-200 p-4 mb-6 text-center rounded border-2 border-dashed border-gray-400">
-            <p class="text-gray-500">AD PLACEMENT - 1 (Adsterra Code Here)</p>
-        </div>
-
-        <section class="bg-white p-6 rounded-xl shadow-md mb-8">
-            <h2 class="text-xl font-bold mb-4 text-center">✨ AI Image Generator</h2>
-            <div class="flex flex-col gap-4">
-                <input id="prompt" type="text" placeholder="Describe your image..." class="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
-                <button onclick="generateImage()" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700">Generate Image</button>
+    <main class="container mx-auto p-4 max-w-lg">
+        <div class="bg-white p-2 mb-4 text-center rounded shadow-sm border border-gray-300">
+            <p class="text-xs text-gray-400">ADVERTISING SPACE</p>
             </div>
 
-            <div id="loading" class="mt-6 text-center hidden">
-                <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4 mx-auto"></div>
-                <p class="text-blue-600 font-bold">AI is Processing your request... Wait 5 seconds</p>
+        <section class="bg-white p-6 rounded-2xl shadow-xl border border-blue-100">
+            <h2 class="text-xl font-bold mb-4 text-center">✨ Fast AI Image Maker</h2>
+            <input id="prompt" type="text" placeholder="Write 'Apple' or 'Lion'..." class="w-full p-4 border-2 rounded-xl mb-4 focus:border-blue-500 outline-none text-lg">
+            <button onclick="makePhoto()" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-xl hover:bg-blue-700 shadow-lg active:scale-95 transition">Generate Photo 🚀</button>
+
+            <div id="loading" class="mt-8 text-center hidden">
+                <div class="loader"></div>
+                <p class="mt-4 text-blue-600 font-bold animate-pulse">AI is Thinking... 10 Seconds</p>
             </div>
 
-            <div id="result" class="mt-6 text-center hidden">
-                <img id="ai-image" src="" alt="AI Result" class="mx-auto rounded-lg shadow-lg max-w-full h-auto">
-                <a id="download-btn" href="#" download="ai_image.jpg" class="inline-block mt-4 bg-green-500 text-white px-6 py-2 rounded-lg font-bold">Save to Gallery</a>
+            <div id="result" class="mt-8 text-center hidden">
+                <img id="ai-image" src="" alt="AI Photo" class="mx-auto rounded-xl shadow-2xl border-4 border-white mb-4">
+                <a id="download-link" href="#" download="ai_photo.jpg" class="bg-green-500 text-white px-8 py-3 rounded-full font-bold inline-block">Download Now 📥</a>
             </div>
         </section>
-
-        <div class="bg-gray-200 p-4 text-center rounded border-2 border-dashed border-gray-400">
-            <p class="text-gray-500">AD PLACEMENT - 2 (Adsterra Code Here)</p>
-        </div>
     </main>
 
     <script>
-        function generateImage() {
+        function makePhoto() {
             const prompt = document.getElementById('prompt').value;
             const loading = document.getElementById('loading');
-            const resultDiv = document.getElementById('result');
+            const result = document.getElementById('result');
             const aiImage = document.getElementById('ai-image');
 
-            if(!prompt) { alert("Bhai, kuch likho toh sahi!"); return; }
+            if(!prompt) { alert("Bhai, kuch likho!"); return; }
 
-            // Show Loading, Hide Result
+            // Loading chalu karo
             loading.classList.remove('hidden');
-            resultDiv.classList.add('hidden');
+            result.classList.add('hidden');
 
-            const imageUrl = `https://pollinations.ai/p/${encodeURIComponent(prompt)}?width=1024&height=1024&seed=${Math.floor(Math.random() * 1000000)}`;
-            
-            // Image load hone ka wait karein
+            // Naya Fast Server Link
+            const timestamp = new Date().getTime();
+            const imageUrl = "https://image.pollinations.ai/prompt/" + encodeURIComponent(prompt) + "?width=800&height=800&seed=" + timestamp;
+
             const tempImg = new Image();
             tempImg.src = imageUrl;
+
             tempImg.onload = function() {
                 aiImage.src = imageUrl;
-                document.getElementById('download-btn').href = imageUrl;
-                loading.classList.add('hidden'); // Processing hat gaya
-                resultDiv.classList.remove('hidden'); // Photo dikh gayi
+                document.getElementById('download-link').href = imageUrl;
+                loading.classList.add('hidden'); // Loader band
+                result.classList.remove('hidden'); // Image dikhao
             };
         }
     </script>
