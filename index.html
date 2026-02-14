@@ -6,63 +6,72 @@
     <title>JAYEEP AI HUB</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .loader { border: 5px solid #f3f3f3; border-top: 5px solid #3498db; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: auto; }
+        .loader { border: 6px solid #f3f3f3; border-top: 6px solid #3b82f6; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; margin: auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="bg-gray-100 font-sans">
-    <header class="bg-blue-600 text-white p-6 text-center shadow-lg">
-        <h1 class="text-3xl font-bold">JAYEEP AI HUB</h1>
-        <p class="mt-2 text-blue-100">500+ Premium Tools for Free</p>
+<body class="bg-gray-50">
+    <header class="bg-blue-600 text-white p-6 text-center shadow-md">
+        <h1 class="text-3xl font-bold italic">JAYEEP AI HUB</h1>
+        <p class="text-sm opacity-90">Instant Premium AI Tools</p>
     </header>
 
-    <main class="container mx-auto p-4 max-w-lg">
-        <div class="bg-white p-2 mb-4 text-center rounded shadow-sm border border-gray-300">
-            <p class="text-xs text-gray-400">ADVERTISING SPACE</p>
+    <main class="p-4 max-w-lg mx-auto">
+        <div class="bg-white p-2 mb-6 text-center rounded border border-gray-200 shadow-sm">
+            <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Sponsored</p>
+            <div id="ad-top" class="min-h-[50px] flex items-center justify-center text-gray-400 italic text-sm">
+                Ads Loading...
             </div>
+        </div>
 
-        <section class="bg-white p-6 rounded-2xl shadow-xl border border-blue-100">
-            <h2 class="text-xl font-bold mb-4 text-center">✨ Fast AI Image Maker</h2>
-            <input id="prompt" type="text" placeholder="Write 'Apple' or 'Lion'..." class="w-full p-4 border-2 rounded-xl mb-4 focus:border-blue-500 outline-none text-lg">
-            <button onclick="makePhoto()" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-xl hover:bg-blue-700 shadow-lg active:scale-95 transition">Generate Photo 🚀</button>
+        <section class="bg-white p-8 rounded-3xl shadow-2xl border border-blue-50">
+            <h2 class="text-2xl font-black mb-6 text-center text-gray-800">🚀 Fast AI Image Maker</h2>
+            
+            <input id="prompt" type="text" placeholder="Type 'Red Car' or 'Lion'..." 
+                class="w-full p-4 border-2 border-gray-100 rounded-2xl mb-4 focus:border-blue-500 outline-none text-lg bg-gray-50 transition-all">
+            
+            <button onclick="generate()" 
+                class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-xl hover:bg-blue-700 active:scale-95 transition-transform shadow-lg shadow-blue-200">
+                GENERATE PHOTO ✨
+            </button>
 
-            <div id="loading" class="mt-8 text-center hidden">
+            <div id="loading" class="mt-10 text-center hidden">
                 <div class="loader"></div>
-                <p class="mt-4 text-blue-600 font-bold animate-pulse">AI is Thinking... 10 Seconds</p>
+                <p class="mt-4 text-blue-600 font-bold animate-bounce text-lg">AI is Creating... 10s</p>
             </div>
 
-            <div id="result" class="mt-8 text-center hidden">
-                <img id="ai-image" src="" alt="AI Photo" class="mx-auto rounded-xl shadow-2xl border-4 border-white mb-4">
-                <a id="download-link" href="#" download="ai_photo.jpg" class="bg-green-500 text-white px-8 py-3 rounded-full font-bold inline-block">Download Now 📥</a>
+            <div id="result" class="mt-10 text-center hidden">
+                <img id="out-img" src="" class="mx-auto rounded-2xl shadow-2xl border-4 border-white transition-all duration-500">
+                <a id="dl-link" href="#" download="ai_jaydeep.jpg" 
+                    class="mt-6 inline-block bg-green-500 text-white px-10 py-4 rounded-full font-black text-lg shadow-xl hover:bg-green-600 transition-colors">
+                    DOWNLOAD 📥
+                </a>
             </div>
         </section>
     </main>
 
     <script>
-        function makePhoto() {
-            const prompt = document.getElementById('prompt').value;
-            const loading = document.getElementById('loading');
-            const result = document.getElementById('result');
-            const aiImage = document.getElementById('ai-image');
+        function generate() {
+            const p = document.getElementById('prompt').value;
+            const l = document.getElementById('loading');
+            const r = document.getElementById('result');
+            const img = document.getElementById('out-img');
 
-            if(!prompt) { alert("Bhai, kuch likho!"); return; }
+            if(!p) { alert("Bhai, kuch likho!"); return; }
 
-            // Loading chalu karo
-            loading.classList.remove('hidden');
-            result.classList.add('hidden');
+            l.classList.remove('hidden');
+            r.classList.add('hidden');
 
-            // Naya Fast Server Link
-            const timestamp = new Date().getTime();
-            const imageUrl = "https://image.pollinations.ai/prompt/" + encodeURIComponent(prompt) + "?width=800&height=800&seed=" + timestamp;
+            // High-Speed Direct API
+            const url = "https://image.pollinations.ai/prompt/" + encodeURIComponent(p) + "?width=800&height=800&nologo=true&seed=" + Math.random();
 
-            const tempImg = new Image();
-            tempImg.src = imageUrl;
-
-            tempImg.onload = function() {
-                aiImage.src = imageUrl;
-                document.getElementById('download-link').href = imageUrl;
-                loading.classList.add('hidden'); // Loader band
-                result.classList.remove('hidden'); // Image dikhao
+            const testImg = new Image();
+            testImg.src = url;
+            testImg.onload = function() {
+                img.src = url;
+                document.getElementById('dl-link').href = url;
+                l.classList.add('hidden');
+                r.classList.remove('hidden');
             };
         }
     </script>
