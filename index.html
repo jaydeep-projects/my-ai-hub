@@ -7,17 +7,12 @@
     <style>
         body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; margin: 0; padding: 20px; text-align: center; }
         h1 { background: linear-gradient(to right, #b85cf6, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2.2rem; margin-bottom: 20px; }
-        
-        /* Grid Layout */
         .mega-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
         .tool-box { background: #111; border: 1px solid #333; border-radius: 12px; padding: 15px; cursor: pointer; border-bottom: 3px solid #a855f7; transition: 0.2s; }
         .tool-box:hover { transform: scale(1.03); border-color: #d946ef; }
-
-        /* POPUP (MODAL) */
         .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
-        .modal-content { background: #111; margin: 10% auto; padding: 25px; border: 2px solid #a855f7; width: 85%; max-width: 450px; border-radius: 20px; position: relative; box-shadow: 0 0 40px rgba(168,85,247,0.5); }
+        .modal-content { background: #111; margin: 10% auto; padding: 25px; border: 2px solid #a855f7; width: 85%; max-width: 450px; border-radius: 20px; position: relative; }
         .close-btn { position: absolute; right: 15px; top: 10px; font-size: 28px; cursor: pointer; color: #fff; }
-        
         textarea { width: 92%; height: 70px; background: #222; color: #fff; border: 1px solid #444; border-radius: 10px; padding: 10px; margin-top: 15px; outline: none; }
         #modalUpload { margin-top: 15px; border: 1px dashed #555; padding: 10px; border-radius: 10px; display: none; }
         .gen-btn { background: linear-gradient(135deg, #8b5cf6, #d946ef); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 15px; }
@@ -34,46 +29,30 @@
         <div class="modal-content">
             <span class="close-btn" onclick="closeTool()">&times;</span>
             <h2 id="modalTitle" style="color: #fff; margin: 0; font-size: 1.4rem;">Tool Name</h2>
-            <p style="color: #a855f7; font-size: 11px; font-weight: bold; margin-bottom: 0;">PREMIUM ACCESS UNLOCKED</p>
+            <p id="toolStatus" style="color: #a855f7; font-size: 11px; font-weight: bold;">PREMIUM ACCESS UNLOCKED</p>
             
             <div id="modalUpload">
-                <p style="font-size: 10px; color: #aaa; margin-bottom: 5px;">Upload Photo/Video for AI Processing:</p>
+                <p style="font-size: 10px; color: #aaa; margin-bottom: 5px;">Upload Image for AI Processing:</p>
                 <input type="file" id="fileInput" style="font-size: 11px; color: #a855f7;">
             </div>
 
-            <textarea id="promptInput" placeholder="Yahan apna command likho..."></textarea>
-            <button class="gen-btn" onclick="runAI()">GENERATE MAGIC (FREE)</button>
-            
-            <div id="result-area">
-                <p style="padding: 20px; color: #444; font-size: 12px;">Result will appear here...</p>
-            </div>
+            <textarea id="promptInput" placeholder="Apna command yahan likho..."></textarea>
+            <button class="gen-btn" onclick="runAI()">GENERATE MAGIC</button>
+            <div id="result-area"><p style="color: #444; font-size: 12px;">Yahan result aayega...</p></div>
         </div>
     </div>
 
 <script>
     const grid = document.getElementById('toolsGrid');
-    
-    // 1. ASLI PREMIUM NAMES
     const brands = ["Sora VIP", "Midjourney V6", "ChatGPT-4", "ElevenLabs", "Runway Gen-3", "Luma Dream", "Pika Labs", "Claude 3.5", "Flux-1 Pro", "DeepSeek R1", "Leonardo VIP", "HeyGen Pro", "Suno Music V4", "Adobe Firefly", "Stable Diffusion"];
-
-    // 2. MIXING LOGIC FOR 5000 UNIQUE NAMES
-    const lvls = ["Ultra", "Elite", "Pro", "VIP", "Master", "Premium", "Turbo", "Hyper", "Gold", "Alpha", "Infinity", "X-Mode"];
-    const typs = ["Text-to-Video", "Image-to-Video", "AI-Animator", "Portrait-3D", "Voice-Magic", "Code-Expert", "Script-Writer", "SEO-Sniper", "Avatar-Maker", "Motion-Gen"];
+    const lvls = ["Ultra", "Elite", "Pro", "VIP", "Master", "Premium", "Turbo", "Hyper"];
+    const typs = ["Text-to-Video", "Image-to-Video", "AI-Animator", "Portrait-3D", "Voice-Magic", "Code-Expert", "Script-Writer", "Avatar-Maker"];
 
     for (let i = 0; i < 5000; i++) {
-        let name;
-        if (i < brands.length) {
-            name = brands[i];
-        } else {
-            // UNIQUE LOGIC: i*7 aur i*13 se combinations repeat nahi honge
-            const l = lvls[(i * 7) % lvls.length];
-            const t = typs[(i * 13) % typs.length];
-            name = `${l} ${t} #${i + 1}`;
-        }
-
+        let name = i < brands.length ? brands[i] : `${lvls[(i*7)%lvls.length]} ${typs[(i*13)%typs.length]} #${i+1}`;
         const box = document.createElement('div');
         box.className = 'tool-box';
-        box.innerHTML = `<div style="font-weight:bold; font-size:11px;">${name}</div><div style="color:#22c55e; font-size:9px; margin-top:5px;">● UNLOCKED</div>`;
+        box.innerHTML = `<div style="font-weight:bold; font-size:11px;">${name}</div><div style="color:#22c55e; font-size:9px; margin-top:5px;">● FREE ACCESS</div>`;
         box.onclick = () => openTool(name);
         grid.appendChild(box);
     }
@@ -81,12 +60,14 @@
     function openTool(name) {
         document.getElementById('toolModal').style.display = "block";
         document.getElementById('modalTitle').innerText = name;
-        document.getElementById('result-area').innerHTML = '<p style="color:#444; font-size:12px;">Ready to work...</p>';
+        document.getElementById('result-area').innerHTML = '<p style="color:#444; font-size:12px;">Ready...</p>';
         
-        // SMART UPLOAD: In keywords par upload button dikhega
         const upload = document.getElementById('modalUpload');
         const check = name.toLowerCase();
-        if(check.includes("image") || check.includes("video") || check.includes("animator") || check.includes("sora") || check.includes("runway") || check.includes("portrait")) {
+
+        // SMART LOGIC: Sirf Image/Animator tools mein upload dikhega
+        // Text-to-Video ya Sora mein upload nahi dikhega
+        if (check.includes("image-to") || check.includes("animator") || check.includes("portrait")) {
             upload.style.display = "block";
         } else {
             upload.style.display = "none";
@@ -95,17 +76,16 @@
 
     function closeTool() { document.getElementById('toolModal').style.display = "none"; }
 
-    async function runAI() {
+    function runAI() {
         const p = document.getElementById('promptInput').value;
         const res = document.getElementById('result-area');
-        if(!p) return alert("Bhai, kuch toh likho!");
-        
-        res.innerHTML = "<p style='color:#fbbf24'>AI is Processing... ⚡</p>";
-        const url = `https://pollinations.ai/p/${encodeURIComponent(p)}?width=1024&height=1024&nologo=true`;
-        
-        setTimeout(() => { res.innerHTML = `<img src="${url}">`; }, 1500);
+        if(!p) return alert("Kuch likho bhai!");
+        res.innerHTML = "<p style='color:#fbbf24'>AI is working... ⚡</p>";
+        // Real AI Image Generation for testing
+        setTimeout(() => { 
+            res.innerHTML = `<img src="https://pollinations.ai/p/${encodeURIComponent(p)}?width=1024&height=1024&nologo=true">`; 
+        }, 1500);
     }
-
     window.onclick = function(e) { if (e.target == document.getElementById('toolModal')) closeTool(); }
 </script>
 </body>
