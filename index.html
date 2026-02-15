@@ -1,33 +1,116 @@
-// 1. ASLI PREMIUM BRANDS (TOP PAR DIKHANE KE LIYE)
-const topBrands = ["Sora VIP", "Midjourney V6", "ChatGPT-4", "ElevenLabs", "Runway Gen-3", "Luma Dream", "Pika Labs", "Claude 3.5", "Flux-1 Pro", "DeepSeek R1", "Leonardo VIP", "HeyGen Pro", "Suno Music V4", "Adobe Firefly", "Stable Diffusion"];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAYDEEP AI HUB 🚀</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; margin: 0; padding: 20px; text-align: center; }
+        h1 { background: linear-gradient(to right, #b85cf6, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2.5rem; margin-bottom: 30px; }
+        
+        /* Grid Layout */
+        .mega-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
+        .tool-box { background: #111; border: 1px solid #333; border-radius: 15px; padding: 20px; cursor: pointer; border-bottom: 3px solid #a855f7; transition: 0.3s; }
+        .tool-box:hover { transform: scale(1.05); border-color: #d946ef; box-shadow: 0 0 15px rgba(168, 85, 247, 0.4); }
 
-// 2. CATEGORIES AUR TAGS KI BADI LIST
-const levels = ["Ultra", "Elite", "Pro", "VIP", "Master", "Premium", "Turbo", "Hyper", "Gold", "Alpha", "Omega", "Prime", "Infinity", "X-Mode", "Nitro", "Titan"];
-const tools = ["Text-to-Video", "Image-to-Video", "AI-Animator", "Portrait-3D", "Voice-Magic", "Code-Expert", "Script-Writer", "SEO-Sniper", "Avatar-Maker", "Motion-Gen", "Background-Fix", "Deep-Fake-Safe", "Face-Swap", "Color-AI", "Style-Gen", "Prompt-Wizard"];
+        /* POPUP (MODAL) STYLE */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); }
+        .modal-content { background: #111; margin: 10% auto; padding: 25px; border: 2px solid #a855f7; width: 90%; max-width: 450px; border-radius: 25px; position: relative; box-shadow: 0 0 50px rgba(168,85,247,0.6); }
+        .close-btn { position: absolute; right: 20px; top: 15px; font-size: 30px; cursor: pointer; color: #aaa; }
+        
+        textarea { width: 95%; height: 80px; background: #222; color: #fff; border: 1px solid #444; border-radius: 10px; padding: 10px; margin-top: 15px; outline: none; }
+        .upload-section { margin-top: 15px; border: 1px dashed #555; padding: 10px; border-radius: 10px; display: none; }
+        .gen-btn { background: linear-gradient(135deg, #8b5cf6, #d946ef); color: white; border: none; padding: 12px; border-radius: 10px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 15px; }
+        #result-area { margin-top: 20px; border-radius: 15px; background: #000; min-height: 150px; border: 1px solid #333; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        img, video { width: 100%; border-radius: 10px; }
+    </style>
+</head>
+<body>
 
-const grid = document.getElementById('toolsGrid');
+    <h1>JAYDEEP AI HUB 🚀</h1>
+    <div class="mega-grid" id="toolsGrid"></div>
 
-for (let i = 0; i < 5000; i++) {
-    let finalName;
+    <div id="toolModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeTool()">&times;</span>
+            <h2 id="modalTitle" style="color: #fff; margin: 0;">Tool Name</h2>
+            <p style="color: #a855f7; font-size: 12px; font-weight: bold;">PREMIUM UNLOCKED</p>
+            
+            <div id="modalUpload" class="upload-section">
+                <p style="font-size: 11px; color: #aaa; margin-bottom: 5px;">Upload Image/Video for Processing:</p>
+                <input type="file" id="fileInput" style="font-size: 12px;">
+            </div>
+
+            <textarea id="promptInput" placeholder="Enter your command here..."></textarea>
+            <button class="gen-btn" onclick="runAI()">GENERATE NOW (FREE)</button>
+            
+            <div id="result-area">
+                <p style="padding: 40px; color: #555; font-size: 12px;">Result yahan dikhega...</p>
+            </div>
+        </div>
+    </div>
+
+<script>
+    const grid = document.getElementById('toolsGrid');
     
-    if (i < topBrands.length) {
-        // Pehle 15 tools asli brand names
-        finalName = topBrands[i];
-    } else {
-        // UNIQUE FORMULA: Level(i) + Tool(i+1) + ID
-        // Isse har box ka naam dusre se bilkul alag ho jayega
-        const lvl = levels[i % levels.length];
-        const typ = tools[(i + Math.floor(i / levels.length) + 1) % tools.length];
-        finalName = `${lvl} ${typ} #${i + 1}`; 
+    // 1. ASLI PREMIUM BRANDS
+    const topBrands = ["Sora VIP", "Midjourney V6", "ChatGPT-4", "ElevenLabs", "Runway Gen-3", "Luma Dream", "Pika Labs", "Claude 3.5", "Flux-1 Pro", "DeepSeek R1", "Leonardo VIP", "HeyGen Pro", "Suno Music V4", "Adobe Firefly", "Stable Diffusion"];
+
+    // 2. CATEGORIES AUR TAGS (FOR UNIQUE MIX)
+    const levels = ["Ultra", "Elite", "Pro", "VIP", "Master", "Premium", "Turbo", "Hyper", "Gold", "Alpha", "Infinity", "X-Mode"];
+    const tools = ["Text-to-Video", "Image-to-Video", "AI-Animator", "Portrait-3D", "Voice-Magic", "Code-Expert", "Script-Writer", "SEO-Sniper", "Avatar-Maker", "Motion-Gen", "Background-Fix", "Style-Gen"];
+
+    // 5000 UNIQUE BOXES GENERATOR
+    for (let i = 0; i < 5000; i++) {
+        let finalName;
+        if (i < topBrands.length) {
+            finalName = topBrands[i];
+        } else {
+            // Formula to ensure no repeats in any line
+            const lvl = levels[i % levels.length];
+            const typ = tools[(i + Math.floor(i / levels.length)) % tools.length];
+            finalName = `${lvl} ${typ} #${i + 1}`;
+        }
+
+        const box = document.createElement('div');
+        box.className = 'tool-box';
+        box.innerHTML = `<strong>${finalName}</strong><br><small style="color:#22c55e;">● FREE ACCESS</small>`;
+        box.onclick = () => openTool(finalName);
+        grid.appendChild(box);
     }
 
-    const box = document.createElement('div');
-    box.className = 'tool-box';
-    box.innerHTML = `
-        <div style="font-weight:bold; font-size:11px; color:#fff;">${finalName}</div>
-        <div style="color:#22c55e; font-size:9px; margin-top:5px;">● FREE ACCESS</div>
-    `;
+    function openTool(name) {
+        document.getElementById('toolModal').style.display = "block";
+        document.getElementById('modalTitle').innerText = name;
+        document.getElementById('result-area').innerHTML = '<p style="padding: 40px; color: #555; font-size: 12px;">Result yahan dikhega...</p>';
+        
+        // Smart Upload logic
+        if(name.includes("Image") || name.includes("Animator") || name.includes("Portrait") || name.includes("Video")) {
+            document.getElementById('modalUpload').style.display = "block";
+        } else {
+            document.getElementById('modalUpload').style.display = "none";
+        }
+    }
 
-    box.onclick = () => openTool(finalName);
-    grid.appendChild(box);
-}
+    function closeTool() {
+        document.getElementById('toolModal').style.display = "none";
+    }
+
+    async function runAI() {
+        const p = document.getElementById('promptInput').value;
+        const res = document.getElementById('result-area');
+        if(!p) return alert("Bhai, kuch toh likho!");
+        
+        res.innerHTML = "<p style='padding:50px; color:#fbbf24'>Processing... ⚡</p>";
+        const url = `https://pollinations.ai/p/${encodeURIComponent(p)}?width=1024&height=1024&nologo=true`;
+        
+        setTimeout(() => { res.innerHTML = `<img src="${url}">`; }, 1500);
+    }
+
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('toolModal')) closeTool();
+    }
+</script>
+
+</body>
+</html>
