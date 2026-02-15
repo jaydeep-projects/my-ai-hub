@@ -3,48 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAYDEEP AI HUB - Ultra Fast</title>
+    <title>JAYDEEP AI HUB - Final Version</title>
     <style>
         body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; text-align: center; padding: 20px; }
-        .card { max-width: 400px; margin: auto; background: #111; padding: 20px; border-radius: 20px; border: 2px solid #333; box-shadow: 0 0 20px #8b5cf6; }
-        input { width: 85%; padding: 12px; margin: 15px 0; border-radius: 10px; border: none; background: #222; color: #fff; }
-        button { background: #8b5cf6; color: #fff; border: none; padding: 12px; border-radius: 10px; cursor: pointer; width: 90%; font-weight: bold; }
-        #loader { display: none; color: #fbbf24; margin-top: 15px; }
-        #output img { width: 100%; border-radius: 15px; margin-top: 20px; border: 1px solid #444; }
+        .card { max-width: 400px; margin: auto; background: #111; padding: 25px; border-radius: 20px; border: 2px solid #8b5cf6; box-shadow: 0 0 30px rgba(139, 92, 246, 0.3); }
+        h1 { color: #8b5cf6; margin-bottom: 5px; }
+        input { width: 90%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 1px solid #333; background: #222; color: #fff; outline: none; }
+        button { background: linear-gradient(135deg, #8b5cf6, #d946ef); color: white; border: none; padding: 15px; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; }
+        #loader { display: none; color: #fbbf24; margin: 15px 0; font-weight: bold; }
+        #output img { width: 100%; border-radius: 15px; margin-top: 20px; border: 2px solid #8b5cf6; }
     </style>
 </head>
 <body>
     <div class="card">
-        <h2>JAYDEEP AI HUB 🚀</h2>
-        <p style="font-size: 11px; color: #777;">Google Powered - No More Errors</p>
-        <input type="text" id="p" placeholder="Type something (e.g. Robot playing cricket)...">
-        <button onclick="gen()">GENERATE WITHOUT ERROR</button>
-        <div id="loader">Waking up Google Servers... ⚡</div>
+        <h1>JAYDEEP AI HUB 🚀</h1>
+        <p style="font-size: 11px; color: #777;">Unlimited Free AI - Direct Mode</p>
+        <input type="text" id="p" placeholder="Enter prompt (e.g. Flying Horse)...">
+        <button onclick="gen()">GENERATE IMAGE</button>
+        <div id="loader">⚡ Creating Masterpiece...</div>
         <div id="output"></div>
     </div>
 
 <script>
     function gen() {
-        const prompt = document.getElementById('p').value;
-        const loader = document.getElementById('loader');
-        const output = document.getElementById('output');
-        if(!prompt) return alert("Bhai, kuch likho!");
+        const p = document.getElementById('p').value;
+        const l = document.getElementById('loader');
+        const o = document.getElementById('output');
+        if(!p) return alert("Kuch likho bhai!");
 
-        loader.style.display = "block";
-        output.innerHTML = "";
+        l.style.display = "block";
+        o.innerHTML = "";
 
-        // Direct Ultra-Fast Generation
-        const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1024&height=1024&nologo=true&nofeed=true&enhance=true`;
+        // Seed generator for unique results
+        const seed = Math.floor(Math.random() * 999999);
+        const url = `https://pollinations.ai/p/${encodeURIComponent(p)}?width=1024&height=1024&seed=${seed}`;
         
+        // Direct image insertion
         const img = new Image();
         img.src = url;
+        img.style.width = "100%";
+        img.style.borderRadius = "15px";
+        img.style.marginTop = "20px";
+        img.style.border = "2px solid #8b5cf6";
+
         img.onload = () => {
-            output.innerHTML = `<img src="${url}">`;
-            loader.style.display = "none";
+            o.appendChild(img);
+            l.style.display = "none";
         };
         img.onerror = () => {
-            // Auto-Retry if failed
-            setTimeout(gen, 2000);
+            alert("Retry once more!");
+            l.style.display = "none";
         };
     }
 </script>
