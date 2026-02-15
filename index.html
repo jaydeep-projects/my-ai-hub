@@ -6,44 +6,62 @@
     <title>JAYDEEP AI HUB - Ultra Pro</title>
     <style>
         body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; text-align: center; padding: 20px; }
-        .card { max-width: 400px; margin: auto; background: #111; padding: 25px; border-radius: 20px; border: 2px solid #d946ef; box-shadow: 0 0 30px #d946ef; }
-        h1 { background: linear-gradient(to right, #8b5cf6, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .card { max-width: 400px; margin: auto; background: #111; padding: 25px; border-radius: 20px; border: 2px solid #d946ef; box-shadow: 0 0 30px rgba(217, 70, 239, 0.3); }
+        h1 { background: linear-gradient(to right, #8b5cf6, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 28px; }
         input { width: 90%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 1px solid #333; background: #222; color: #fff; outline: none; }
-        button { background: linear-gradient(135deg, #8b5cf6, #d946ef); color: white; border: none; padding: 15px; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; }
-        #output img { width: 100%; border-radius: 15px; margin-top: 20px; border: 2px solid #d946ef; animation: fadein 1s; }
-        @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+        button { background: linear-gradient(135deg, #8b5cf6, #d946ef); color: white; border: none; padding: 15px; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; }
+        button:active { transform: scale(0.95); }
+        #loader { display: none; color: #fbbf24; margin: 15px; font-weight: bold; }
+        #output img { width: 100%; border-radius: 15px; margin-top: 20px; border: 2px solid #d946ef; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body>
     <div class="card">
         <h1>JAYDEEP AI HUB 🚀</h1>
         <p style="font-size: 11px; color: #aaa;">Unlimited Free Mode - High Speed</p>
-        <input type="text" id="p" placeholder="Enter anything (e.g. Neon Car)...">
+        <input type="text" id="p" placeholder="Enter anything (e.g. Neon Tiger)...">
         <button onclick="gen()">GENERATE INSTANTLY</button>
+        <div id="loader">⚡ Fetching from Best Server...</div>
         <div id="output"></div>
     </div>
 
 <script>
     function gen() {
         const p = document.getElementById('p').value;
+        const l = document.getElementById('loader');
         const o = document.getElementById('output');
         if(!p) return alert("Kuch toh dalo bhai!");
 
-        o.innerHTML = "<p style='color:#fbbf24'>Connecting to High-Speed Engine... ⚡</p>";
+        l.style.display = "block";
+        o.innerHTML = "";
 
-        const seed = Math.floor(Math.random() * 10000);
-        // Using a more stable proxy for Pollinations
-        const url = `https://image.pollinations.ai/prompt/${p.replace(/\s+/g, '%20')}?width=1024&height=1024&seed=${seed}&nologo=true`;
-        
+        // Strategy: First try high-quality AI, then fallback to high-speed image engine
+        const seed = Math.floor(Math.random() * 1000000);
+        const aiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(p)}?width=1024&height=1024&seed=${seed}&nologo=true`;
+        const fallbackUrl = `https://loremflickr.com/1024/1024/${encodeURIComponent(p)}`;
+
         const img = new Image();
-        img.src = url;
+        img.src = aiUrl;
+
         img.onload = () => {
-            o.innerHTML = `<img src="${url}">`;
+            o.innerHTML = `<img src="${aiUrl}">`;
+            l.style.display = "none";
         };
+
         img.onerror = () => {
-            // Backup Mode: Direct Source
-            o.innerHTML = `<img src="https://source.unsplash.com/1600x900/?${p}" style="border-color:#8b5cf6">`;
+            // If AI server is down, show a high-quality relevant image immediately
+            console.log("Switching to Fallback Engine...");
+            o.innerHTML = `<img src="${fallbackUrl}">`;
+            l.style.display = "none";
         };
+
+        // Timeout: If AI takes more than 10 seconds, show fallback
+        setTimeout(() => {
+            if (l.style.display === "block") {
+                o.innerHTML = `<img src="${fallbackUrl}">`;
+                l.style.display = "none";
+            }
+        }, 10000);
     }
 </script>
 </body>
