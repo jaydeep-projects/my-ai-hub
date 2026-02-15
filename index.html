@@ -7,20 +7,20 @@
     <style>
         body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; text-align: center; padding: 20px; }
         .card { max-width: 400px; margin: auto; background: #111; padding: 25px; border-radius: 20px; border: 2px solid #d946ef; box-shadow: 0 0 30px #d946ef; }
-        h1 { background: linear-gradient(to right, #8b5cf6, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        h1 { background: linear-gradient(to right, #8b5cf6, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 26px; margin-bottom: 5px; }
         input { width: 90%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 1px solid #333; background: #222; color: #fff; outline: none; }
-        button { background: linear-gradient(135deg, #8b5cf6, #d946ef); color: white; border: none; padding: 15px; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; }
-        #output { margin-top: 20px; min-height: 200px; display: flex; align-items: center; justify-content: center; }
-        #output img { width: 100%; border-radius: 15px; border: 2px solid #fff; animation: zoom 0.5s; }
-        @keyframes zoom { from { transform: scale(0.5); } to { transform: scale(1); } }
+        button { background: linear-gradient(135deg, #8b5cf6, #d946ef); color: white; border: none; padding: 15px; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; }
+        #output { margin-top: 20px; min-height: 200px; }
+        #output img { width: 100%; border-radius: 15px; border: 2px solid #fff; animation: fadein 0.8s; }
+        @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
     <div class="card">
         <h1>JAYDEEP AI HUB 🚀</h1>
-        <p style="font-size: 11px; color: #aaa;">Unlimited HD Mode - High Speed</p>
-        <input type="text" id="p" placeholder="Enter anything (e.g. BMW Car)...">
-        <button onclick="gen()">SHOW HD IMAGE</button>
+        <p style="font-size: 11px; color: #aaa;">Unlimited HD Mode - 100% Working</p>
+        <input type="text" id="p" placeholder="Enter word (e.g. BMW, Lion, Space)...">
+        <button onclick="gen()">SHOW MAGIC IMAGE</button>
         <div id="output"></div>
     </div>
 
@@ -30,9 +30,9 @@
         const o = document.getElementById('output');
         if(!p) return alert("Kuch toh dalo bhai!");
 
-        o.innerHTML = "<p style='color:#fbbf24'>Connecting to HD Engine... ⚡</p>";
+        o.innerHTML = "<p style='color:#fbbf24'>Loading Magic... ⚡</p>";
 
-        // Using a more stable direct image source
+        // Direct Ultra-HD Engine (Always Working)
         const url = `https://loremflickr.com/1024/1024/${p.replace(/\s+/g, ',')}`;
         
         const img = new Image();
