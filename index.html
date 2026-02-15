@@ -1,32 +1,86 @@
-<div class="mega-grid" id="megaGrid">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAYDEEP AI HUB - Premium Access</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; text-align: center; padding: 20px; margin: 0; }
+        
+        /* Main Card Style - Tere 5281.jpg jaisa */
+        .card { 
+            max-width: 400px; margin: 20px auto; background: #111; padding: 25px; 
+            border-radius: 20px; border: 2px solid #333; 
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.6); /* Neon Glow */
+        }
+
+        h1 { background: linear-gradient(to right, #b85cf6, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2.2rem; margin: 0; }
+        .sub-text { font-size: 11px; color: #aaa; margin-bottom: 20px; }
+        
+        input { width: 90%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 1px solid #333; background: #222; color: white; outline: none; }
+        
+        /* Gradient Button Style */
+        .btn { 
+            background: linear-gradient(135deg, #8b5cf6, #d946ef); color: white; border: none; 
+            padding: 15px; border-radius: 10px; cursor: pointer; width: 95%; 
+            font-weight: bold; text-transform: uppercase; transition: 0.3s; 
+        }
+        .btn:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(217, 70, 239, 0.5); }
+
+        /* Grid for 5001 Boxes */
+        .mega-grid { display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 50px; }
+        
+        /* Tool Box - Bilkul Main Card Jaisa */
+        .tool-box { 
+            width: 90%; max-width: 400px; background: #111; padding: 20px; 
+            border-radius: 20px; border: 2px solid #a855f7; /* Neon Border */
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+            transition: 0.3s;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>JAYDEEP AI HUB 🚀</h1>
+        <p class="sub-text">Unlimited Free Mode - High Speed</p>
+        <input type="text" id="p" placeholder="Enter word (e.g. Apple, Lion)...">
+        <button class="btn" onclick="gen()">GENERATE INSTANTLY</button>
+        <div id="output" style="margin-top:20px;"></div>
     </div>
 
-<script>
-    const grid = document.getElementById('megaGrid');
-    const totalTools = 5001; 
-    
-    // In names ko hum premium categories mein dikhayenge
-    const premiumTools = ["ChatGPT Plus Free", "Sora Video Pro", "Midjourney VIP", "Claude 3.5 Paid", "Gemini Ultra", "ElevenLabs Max"];
+    <h2 style="margin-top:50px; color:#a855f7;">🔓 5001 PREMIUM TOOLS UNLOCKED</h2>
 
-    for (let i = 1; i <= totalTools; i++) {
-        const name = premiumTools[i-1] || `Premium AI Tool ${i}`;
-        const box = document.createElement('div');
-        box.className = 'tool-box';
-        // Design jo teri site ke 'Neon Purple' theme se match karega
-        box.style.cssText = "background:#111; border:2px solid #8b5cf6; border-radius:15px; padding:20px; text-align:center; transition:0.3s; margin-bottom:10px;";
-        
-        box.innerHTML = `
-            <div style="color:#d946ef; font-weight:bold; font-size:12px;">PREMIUM UNLOCKED #${i}</div>
-            <div style="margin-top:10px; font-weight:bold; font-size:18px; color:#fff;">${name}</div>
-            <div style="color:#22c55e; font-size:12px; margin-top:5px;">● 100% Free Access</div>
-            <button style="margin-top:15px; background:linear-gradient(135deg, #8b5cf6, #d946ef); color:white; border:none; padding:8px 15px; border-radius:8px; cursor:pointer; font-weight:bold; width:100%;">USE TOOL NOW</button>
-        `;
-        
-        // Click karne par koi dusri site nahi khulegi, teri site ka function chalega
-        box.onclick = function() {
-            alert(name + " loading in Free Mode... Jaydeep AI Hub Special Access Activated!");
-        };
-        
-        grid.appendChild(box);
-    }
-</script>
+    <div class="mega-grid" id="megaGrid"></div>
+
+    <script>
+        // Image Generation Logic
+        function gen() {
+            const p = document.getElementById('p').value;
+            const o = document.getElementById('output');
+            if(!p) return alert("Kuch likho bhai!");
+            o.innerHTML = "<p style='color:#a855f7'>Magic Loading...</p>";
+            const url = `https://loremflickr.com/800/800/${p.replace(/\s+/g, ',')}`;
+            o.innerHTML = `<img src="${url}" style="width:100%; border-radius:15px; border:2px solid #fff;">`;
+        }
+
+        // Loop for 5001 Premium Boxes
+        const grid = document.getElementById('megaGrid');
+        const toolNames = ["ChatGPT Plus", "Sora Video", "Midjourney VIP", "Claude Pro", "Gemini Ultra", "DALL-E 4", "Luma VIP", "Pika Pro", "Flux Elite", "DeepSeek Max"];
+
+        for (let i = 1; i <= 5001; i++) {
+            const name = toolNames[i-1] || `Premium AI Tool ${i}`;
+            const box = document.createElement('div');
+            box.className = 'tool-box';
+            
+            box.innerHTML = `
+                <div style="color:#a855f7; font-weight:bold; font-size:12px; margin-bottom:10px;">PREMIUM UNLOCKED #${i}</div>
+                <div style="font-size:1.5rem; font-weight:bold; margin-bottom:15px;">${name}</div>
+                <p style="color:#22c55e; font-size:12px;">● 100% Free Access Mode</p>
+                <button class="btn" style="padding:10px; font-size:12px;" onclick="alert('${name} Start Ho Raha Hai...')">START TOOL NOW</button>
+            `;
+            grid.appendChild(box);
+        }
+    </script>
+</body>
+</html>
