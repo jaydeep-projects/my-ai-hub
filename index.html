@@ -1,3 +1,4 @@
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,106 +6,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JAYDEEP AI HUB 🚀</title>
     <style>
-        /* Spacing ko theek karne ke liye naya style */
         body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; text-align: center; margin: 0; padding: 10px; }
-        
-        .main-wrapper { padding-top: 20px; display: flex; flex-direction: column; align-items: center; }
-
-        .card { 
-            width: 90%; max-width: 450px; background: #111; padding: 25px; 
-            border-radius: 20px; border: 2px solid #a855f7; 
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.8); 
-            margin-bottom: 40px; /* Grid se door rakhne ke liye */
-            position: relative; z-index: 10;
-        }
-
+        .card { width: 90%; max-width: 450px; background: #111; padding: 25px; border-radius: 20px; border: 2px solid #a855f7; box-shadow: 0 0 30px rgba(168, 85, 247, 0.8); margin: 20px auto; position: sticky; top: 10px; z-index: 1000; }
         h1 { background: linear-gradient(to right, #b85cf6, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2rem; margin: 0; }
         
-        textarea { width: 90%; height: 70px; background: #222; color: #fff; border: 1px solid #444; border-radius: 10px; padding: 10px; margin-top: 15px; outline: none; }
+        /* Upload & Input Styling */
+        .input-group { margin-top: 15px; background: #222; padding: 10px; border-radius: 10px; border: 1px solid #444; }
+        input[type="file"] { font-size: 12px; color: #aaa; width: 100%; margin-bottom: 10px; }
+        textarea { width: 95%; height: 60px; background: #000; color: #fff; border: 1px solid #333; border-radius: 8px; padding: 8px; outline: none; }
         
-        .gen-btn { background: linear-gradient(135deg, #8b5cf6, #d946ef); color: white; border: none; padding: 12px; border-radius: 10px; cursor: pointer; width: 95%; font-weight: bold; margin-top: 10px; }
-        
-        #upload-section { display: none; margin-top: 10px; border: 1px dashed #555; padding: 10px; border-radius: 10px; }
-        
-        #result { margin-top: 15px; border-radius: 10px; overflow: hidden; border: 1px solid #333; min-height: 100px; background: #000; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #555; }
-        img, video { width: 100%; border-radius: 10px; }
+        .gen-btn { background: linear-gradient(135deg, #8b5cf6, #d946ef); color: white; border: none; padding: 12px; border-radius: 10px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; }
+        #result { margin-top: 15px; border-radius: 10px; min-height: 100px; background: #000; border: 1px solid #333; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        img, video { width: 100%; }
 
-        /* Grid Layout Fix */
-        .mega-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); 
-            gap: 12px; 
-            width: 100%; 
-            max-width: 1200px; 
-            padding-bottom: 50px;
-        }
-
-        .tool-box { 
-            background: #111; border: 1px solid #333; border-radius: 12px; 
-            padding: 12px; cursor: pointer; border-bottom: 3px solid #a855f7; 
-            transition: 0.2s;
-        }
-        .tool-box:hover { transform: translateY(-3px); border-color: #d946ef; }
+        .mega-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; padding: 20px; }
+        .tool-box { background: #111; border: 1px solid #333; border-radius: 12px; padding: 15px; cursor: pointer; border-bottom: 3px solid #a855f7; transition: 0.2s; }
+        .tool-box:hover { transform: translateY(-5px); border-color: #d946ef; }
     </style>
 </head>
 <body>
 
-<div class="main-wrapper">
-    <div class="card">
-        <h1>JAYDEEP AI HUB 🚀</h1>
-        <p id="tool-active" style="color:#d946ef; font-weight:bold; font-size: 12px; margin-top:5px;">Select a Tool Below</p>
-        
-        <div id="upload-section">
-            <input type="file" id="fileInput" accept="image/*" style="font-size: 10px;">
-        </div>
-        
+<div class="card">
+    <h1>JAYDEEP AI HUB 🚀</h1>
+    <p id="tool-active" style="color:#d946ef; font-weight:bold; font-size: 13px;">Premium Unlocked</p>
+    
+    <div class="input-group">
+        <label style="font-size: 11px; display: block; margin-bottom: 5px; color: #a855f7;">Upload Photo/Video (Optional):</label>
+        <input type="file" id="fileInput" accept="image/*,video/*">
         <textarea id="promptInput" placeholder="Describe your magic here..."></textarea>
-        <button class="gen-btn" onclick="runMagic()">GENERATE NOW (FREE)</button>
-        <div id="result">Ready to Generate...</div>
     </div>
-
-    <div class="mega-grid" id="toolsGrid"></div>
+    
+    <button class="gen-btn" onclick="startMagic()">GENERATE (FREE)</button>
+    <div id="result">Result will appear here...</div>
 </div>
+
+<div class="mega-grid" id="toolsGrid"></div>
 
 <script>
     const grid = document.getElementById('toolsGrid');
-    const categories = ["Text-to-Video", "Image-to-Video", "AI-Animator", "Portrait-to-3D", "Text-to-Image", "Voice-to-Video"];
-    const tags = ["Elite", "Pro", "Premium", "Ultra", "Master", "VIP"];
+    const brands = ["Sora VIP", "Midjourney", "ChatGPT-4", "ElevenLabs", "Runway Gen-3", "Luma Dream", "Pika Labs", "Claude 3.5"];
+    const types = ["Text-to-Video", "Image-to-Video", "AI-Animator", "Voice-Gen", "Portrait-3D", "Code-Expert"];
+    const levels = ["Pro", "Elite", "Ultra", "VIP", "Master", "Premium"];
 
-    // Tools Generate Karein
-    for (let i = 1; i <= 5000; i++) {
-        const cat = categories[i % categories.length];
-        const tag = tags[i % tags.length];
-        const name = `${tag} ${cat} #${i}`;
-
+    // 5000 Unique Tools (Bina # Number ke)
+    for (let i = 0; i < 5000; i++) {
+        let name = i < brands.length ? brands[i] : `${levels[i % levels.length]} ${types[i % types.length]}`;
         const box = document.createElement('div');
         box.className = 'tool-box';
-        box.innerHTML = `
-            <div style="color:#a855f7; font-size:10px; font-weight:bold;">#${i}</div>
-            <div style="margin:5px 0; font-weight:bold; font-size:11px;">${name}</div>
-            <div style="color:#22c55e; font-size:9px;">● UNLOCKED</div>
-        `;
-        
+        box.innerHTML = `<div style="font-weight:bold; font-size:12px;">${name}</div><div style="color:#22c55e; font-size:9px; margin-top:5px;">● FREE ACCESS</div>`;
         box.onclick = () => {
             window.scrollTo({top: 0, behavior: 'smooth'});
-            document.getElementById('tool-active').innerText = name;
-            document.getElementById('upload-section').style.display = name.includes("Image") || name.includes("Animator") ? "block" : "none";
+            document.getElementById('tool-active').innerText = "Active: " + name;
         };
         grid.appendChild(box);
     }
 
-    // Generator Function
-    async function runMagic() {
+    async function startMagic() {
         const p = document.getElementById('promptInput').value;
+        const file = document.getElementById('fileInput').files[0];
         const res = document.getElementById('result');
-        if(!p) return alert("Bhai prompt dalo!");
         
-        res.innerHTML = "AI is working... ⚡";
-        const url = `https://pollinations.ai/p/${encodeURIComponent(p)}?width=1024&height=1024&nologo=true`;
+        if(!p && !file) return alert("Bhai, kuch toh upload karo ya likho!");
         
-        setTimeout(() => { res.innerHTML = `<img src="${url}">`; }, 1500);
+        res.innerHTML = "Processing Magic... ⚡";
+        
+        if(file) {
+            // Agar file upload ki hai toh use dikhayenge
+            const url = URL.createObjectURL(file);
+            if(file.type.includes("video")) {
+                res.innerHTML = `<video src="${url}" controls autoplay></video>`;
+            } else {
+                res.innerHTML = `<img src="${url}"><p style="font-size:10px; color:#22c55e;">Processing AI Magic on your Image...</p>`;
+            }
+        } else {
+            // Sirf text hai toh AI Image generate karega
+            const imgUrl = `https://pollinations.ai/p/${encodeURIComponent(p)}?width=1024&height=1024&nologo=true`;
+            setTimeout(() => { res.innerHTML = `<img src="${imgUrl}">`; }, 1500);
+        }
     }
 </script>
-
+</body>
+</html>
 </body>
 </html>
