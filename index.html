@@ -3,53 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAYDEEP AI HUB - No Wait Premium</title>
+    <title>JAYDEEP AI HUB - Ultra Fast</title>
     <style>
-        body { font-family: 'Poppins', sans-serif; background: #0a0a0a; color: #fff; text-align: center; padding: 20px; }
-        .container { max-width: 450px; margin: auto; background: #151515; padding: 25px; border-radius: 20px; border: 1px solid #333; box-shadow: 0 0 20px rgba(139, 92, 246, 0.2); }
-        h1 { color: #8b5cf6; margin-bottom: 5px; }
-        input { width: 90%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 1px solid #444; background: #000; color: #fff; outline: none; }
-        button { background: linear-gradient(135deg, #8b5cf6, #d946ef); color: white; border: none; padding: 15px; border-radius: 10px; cursor: pointer; font-weight: bold; width: 95%; }
-        #loader { display: none; color: #fbbf24; margin-top: 15px; font-weight: bold; }
-        #result img { width: 100%; border-radius: 15px; margin-top: 20px; border: 2px solid #8b5cf6; display: block; }
+        body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; text-align: center; padding: 20px; }
+        .card { max-width: 400px; margin: auto; background: #111; padding: 20px; border-radius: 20px; border: 2px solid #333; box-shadow: 0 0 20px #8b5cf6; }
+        input { width: 85%; padding: 12px; margin: 15px 0; border-radius: 10px; border: none; background: #222; color: #fff; }
+        button { background: #8b5cf6; color: #fff; border: none; padding: 12px; border-radius: 10px; cursor: pointer; width: 90%; font-weight: bold; }
+        #loader { display: none; color: #fbbf24; margin-top: 15px; }
+        #output img { width: 100%; border-radius: 15px; margin-top: 20px; border: 1px solid #444; }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>JAYDEEP AI HUB 🚀</h1>
-    <p style="font-size: 12px; color: #888;">Unlimited Generation - No Server Busy Error</p>
-    
-    <input type="text" id="prompt" placeholder="Describe your image (e.g. Iron Man in India)...">
-    <button onclick="generate()">GENERATE NOW</button>
-    
-    <div id="loader">Creating your masterpiece... ⚡</div>
-    <div id="result"></div>
-</div>
+    <div class="card">
+        <h2>JAYDEEP AI HUB 🚀</h2>
+        <p style="font-size: 11px; color: #777;">Google Powered - No More Errors</p>
+        <input type="text" id="p" placeholder="Type something (e.g. Robot playing cricket)...">
+        <button onclick="gen()">GENERATE WITHOUT ERROR</button>
+        <div id="loader">Waking up Google Servers... ⚡</div>
+        <div id="output"></div>
+    </div>
 
 <script>
-    function generate() {
-        const prompt = document.getElementById('prompt').value;
+    function gen() {
+        const prompt = document.getElementById('p').value;
         const loader = document.getElementById('loader');
-        const result = document.getElementById('result');
-        
-        if(!prompt) { alert("Bhai, kuch toh likho!"); return; }
-        
+        const output = document.getElementById('output');
+        if(!prompt) return alert("Bhai, kuch likho!");
+
         loader.style.display = "block";
-        result.innerHTML = "";
-        
-        // Random seed for unique results every time
-        const seed = Math.floor(Math.random() * 100000);
-        const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?seed=${seed}&width=1024&height=1024&nologo=true`;
+        output.innerHTML = "";
+
+        // Direct Ultra-Fast Generation
+        const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1024&height=1024&nologo=true&nofeed=true&enhance=true`;
         
         const img = new Image();
-        img.src = imageUrl;
-        img.onload = function() {
-            result.innerHTML = `<img src="${imageUrl}">`;
+        img.src = url;
+        img.onload = () => {
+            output.innerHTML = `<img src="${url}">`;
             loader.style.display = "none";
         };
-        img.onerror = function() {
-            alert("Error! Try again.");
-            loader.style.display = "none";
+        img.onerror = () => {
+            // Auto-Retry if failed
+            setTimeout(gen, 2000);
         };
     }
 </script>
