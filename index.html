@@ -1,74 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAYDEEP AI HUB - Ultra Pro Max</title>
-    <style>
-        /* CSS for Image Generator & Grid Boxes */
-        body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; text-align: center; padding: 20px; margin: 0; }
-        .card { max-width: 90%; margin: auto; background: #111; padding: 25px; border-radius: 20px; border: 2px solid #333; box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); }
-        h1 { background: linear-gradient(to right, #b85cf6, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2.5rem; margin-bottom: 10px; }
-        input { width: 80%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 1px solid #333; background: #222; color: white; outline: none; }
-        button { background: linear-gradient(135deg, #8b5cf6, #d946ef); color: white; border: none; padding: 15px; border-radius: 10px; cursor: pointer; width: 85%; font-weight: bold; transition: 0.3s; }
-        button:hover { transform: scale(1.02); opacity: 0.9; }
-        #output { margin-top: 20px; min-height: 200px; }
-        #output img { width: 100%; border-radius: 15px; border: 2px solid #fff; animation: fadeIn 0.8s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* GRID FOR 5001 TOOLS */
-        .mega-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; padding: 20px; margin-top: 50px; border-top: 1px solid #333; }
-        .tool-box { background: #111; border: 1px solid #38bdf8; border-radius: 12px; padding: 15px; text-align: center; transition: 0.3s; }
-        .tool-box:hover { transform: translateY(-5px); border-color: #d946ef; box-shadow: 0 5px 15px rgba(217, 70, 239, 0.3); }
-        .tool-id { color: #38bdf8; font-size: 12px; font-weight: bold; }
-    </style>
-</head>
-<body>
-
-    <div class="card">
-        <h1>JAYDEEP AI HUB 🚀</h1>
-        <p style="font-size: 11px; color: #aaa;">Unlimited HD Mode - 100% Working</p>
-        <input type="text" id="p" placeholder="Enter word (e.g. BMW, Lion, Space)...">
-        <button onclick="gen()">SHOW MAGIC IMAGE</button>
-        <div id="output"></div>
+<div class="mega-grid" id="megaGrid">
     </div>
 
-    <h2 style="margin-top: 60px; color: #38bdf8;">🔥 World's Largest AI Directory (5001 Tools)</h2>
-    <div class="mega-grid" id="megaGrid">
-        </div>
+<script>
+    const grid = document.getElementById('megaGrid');
+    const totalTools = 5001; 
+    
+    // In names ko hum premium categories mein dikhayenge
+    const premiumTools = ["ChatGPT Plus Free", "Sora Video Pro", "Midjourney VIP", "Claude 3.5 Paid", "Gemini Ultra", "ElevenLabs Max"];
 
-    <script>
-        // FUNCTION FOR IMAGE GENERATION
-        function gen() {
-            const p = document.getElementById('p').value;
-            const o = document.getElementById('output');
-            if(!p) return alert("Kuch toh dalo bhai!");
-            o.innerHTML = "<p style='color:#fbbf24'>Loading Magic... ⚡</p>";
-            const url = `https://loremflickr.com/1024/1024/${p.replace(/\s+/g, ',')}`;
-            const img = new Image();
-            img.src = url;
-            img.onload = () => { o.innerHTML = `<img src="${url}">`; };
-            img.onerror = () => { o.innerHTML = "<p style='color:red'>Server busy, try again!</p>"; };
-        }
-
-        // DYNAMIC GENERATOR FOR 5001 BOXES
-        const grid = document.getElementById('megaGrid');
-        const totalTools = 5001; // Bhai ki demand: 5001 Tools
+    for (let i = 1; i <= totalTools; i++) {
+        const name = premiumTools[i-1] || `Premium AI Tool ${i}`;
+        const box = document.createElement('div');
+        box.className = 'tool-box';
+        // Design jo teri site ke 'Neon Purple' theme se match karega
+        box.style.cssText = "background:#111; border:2px solid #8b5cf6; border-radius:15px; padding:20px; text-align:center; transition:0.3s; margin-bottom:10px;";
         
-        // Sample Names (Tu yahan hazaron naam add kar sakta hai)
-        const topTools = ["ChatGPT", "Sora", "Midjourney", "Claude", "Gemini", "ElevenLabs", "Runway", "Flux", "DeepSeek", "HeyGen"];
-
-        for (let i = 1; i <= totalTools; i++) {
-            const name = topTools[i-1] || `Premium AI Tool ${i}`;
-            const box = document.createElement('div');
-            box.className = 'tool-box';
-            box.innerHTML = `
-                <div class="tool-id">#${i}</div>
-                <div style="margin-top:5px; font-weight:bold; font-size:14px;">${name}</div>
-                <button style="width:auto; padding:5px 10px; margin-top:10px; font-size:10px;">VISIT SITE</button>
-            `;
-            grid.appendChild(box);
-        }
-    </script>
-</body>
-</html>
+        box.innerHTML = `
+            <div style="color:#d946ef; font-weight:bold; font-size:12px;">PREMIUM UNLOCKED #${i}</div>
+            <div style="margin-top:10px; font-weight:bold; font-size:18px; color:#fff;">${name}</div>
+            <div style="color:#22c55e; font-size:12px; margin-top:5px;">● 100% Free Access</div>
+            <button style="margin-top:15px; background:linear-gradient(135deg, #8b5cf6, #d946ef); color:white; border:none; padding:8px 15px; border-radius:8px; cursor:pointer; font-weight:bold; width:100%;">USE TOOL NOW</button>
+        `;
+        
+        // Click karne par koi dusri site nahi khulegi, teri site ka function chalega
+        box.onclick = function() {
+            alert(name + " loading in Free Mode... Jaydeep AI Hub Special Access Activated!");
+        };
+        
+        grid.appendChild(box);
+    }
+</script>
