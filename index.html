@@ -1,45 +1,59 @@
-// 1. Sabse pehle top 50 Asli Premium Brands ki list
-const premiumList = [
-    "ChatGPT-4 Plus", "Sora Video Pro", "Midjourney V6", "Claude 3.5", "Gemini Ultra", 
-    "ElevenLabs Max", "Runway Gen-3", "Pika Labs Elite", "DALL-E 3 VIP", "Flux-1 Pro",
-    "DeepSeek R1", "Leonardo VIP", "HeyGen Avatar", "Suno V4 Music", "Luma Dream Machine",
-    "Adobe Firefly", "Stable Diffusion 3", "Jasper Writing Pro", "Copy.ai VIP", "Descript Elite",
-    "Synthesia Pro", "Kaiber Video", "InVideo VIP", "Canva Magic", "Perplexity Pro",
-    "Grok VIP", "Mistral Large", "Character.ai Premium", "Phind Code Pro", "Gamma VIP",
+// JAYDEEP AI HUB - 5000 TOOLS MASTER LIST
+const allTools = [
+    // 1-50: Top Premium Brands
+    "ChatGPT-4 Plus", "Sora Video Pro", "Midjourney VIP", "Claude 3.5 Paid", "Gemini Ultra",
+    "ElevenLabs Max", "Runway Gen-3", "Pika Labs Pro", "DALL-E 3 VIP", "Flux-1 Elite",
+    "DeepSeek R1 Pro", "Leonardo.ai VIP", "HeyGen Avatar Pro", "Suno V4 Music", "Luma Dream Machine",
+    "Adobe Firefly Pro", "Stable Diffusion 3", "Jasper Writing", "Copy.ai VIP", "Descript Elite",
+    "Synthesia Pro", "Kaiber Video AI", "InVideo VIP", "Canva Magic Pro", "Perplexity Pro",
+    "Grok VIP Access", "Mistral Large", "Character.ai Plus", "Phind Code Pro", "Gamma VIP",
     "Veed.io Max", "Kling AI Video", "SeaArt Pro", "CivitAI VIP", "Playground Pro",
-    "Lexica Aperture", "BlueWillow VIP", "NightCafe Elite", "Artbreeder Pro", "StarryAI",
+    "Lexica Aperture", "BlueWillow VIP", "NightCafe Elite", "Artbreeder Pro", "StarryAI VIP",
     "Murf.ai Voice", "WellSaid Labs", "Speechify VIP", "Pictory Pro", "Lumen5 Max",
-    "ClipChamp VIP", "CapCut AI Pro", "Remove.bg Pro", "Topaz Photo AI", "Luminar Neo"
+    "ClipChamp VIP", "CapCut AI Pro", "Remove.bg Pro", "Topaz Photo AI", "Luminar Neo",
+
+    // 51-100: Specialized AI Tools
+    "Udio Music Pro", "Mubert AI", "AIVA Music Master", "Soundraw VIP", "Boomy AI",
+    "Voicify.ai", "Resemble AI", "Play.ht Pro", "Lovo.ai Elite", "Otter.ai Pro",
+    "Fireflies VIP", "Grain AI", "Rewind AI", "Mem.ai Pro", "Notion AI VIP",
+    "Quillbot Premium", "Grammarly Business", "Hemingway Editor Pro", "ProWritingAid", "Rytr VIP",
+    "Writesonic Ultra", "Anyword Pro", "Peppertype AI", "Scalenut VIP", "Surfer SEO Pro",
+    "Frase.io Elite", "MarketMuse VIP", "Clearscope Pro", "Semrush AI", "Ahrefs Content AI",
+    "Midjourney Niji 6", "Adobe Podcast AI", "Cleanvoice.ai", "Krisp Pro VIP", "Descript Overdub",
+    "Synthesys VIP", "Colossyan Pro", "Elai.io Elite", "Hourone.ai VIP", "Rephrase.ai",
+    "Tavus AI Pro", "Bhuman.ai VIP", "Deepbrain AI", "Movio.la Pro", "D-ID Creative",
+    "Rose.ai Finance", "Beautiful.ai Pro", "Gamma App Elite", "Tome AI VIP", "SlidesAI Pro"
 ];
 
-// 2. Baki ke tools ke liye manual unique name logic
+// 101 se 5000 tak ke Unique Names Generate karne ka Manual Method
+const prefixes = ["Ultra", "Elite", "Pro", "Master", "Gold", "VIP", "X-Mode", "Nitro", "Turbo", "Prime", "Magic", "Hyper", "Alpha", "Omega", "Infinity", "Titan"];
+const types = ["Video", "Image", "Chat", "Code", "Music", "Design", "Writer", "SEO", "Voice", "Data", "Security", "Avatar", "Motion", "Logic", "Editor", "Gen"];
+
 const grid = document.getElementById('toolsGrid');
 
-for (let i = 1; i <= 5001; i++) {
-    let finalName;
+for (let i = 1; i <= 5000; i++) {
+    let toolName;
     
-    if (i <= 50) {
-        // Pehle 50 tools ek-ek karke asli naam uthayenge
-        finalName = premiumList[i-1];
+    if (i <= 100) {
+        // Pehle 100 tools asli list se uthayenge
+        toolName = allTools[i-1];
     } else {
-        // Baki tools ke liye unique category + ID (Jaise tune maanga tha)
-        const types = ["Video-Master", "Image-Pro", "Chat-Bot-VIP", "Code-Expert", "Audio-Elite", "SEO-Turbo", "Content-Gen"];
-        const currentType = types[i % types.length];
-        finalName = `${currentType} Tool #${i}`; // Har ek ka naam alag (Tool #51, #52...)
+        // Baki 4900 tools ke liye Unique Combinations (Taki koi name repeat na ho)
+        const p = prefixes[i % prefixes.length];
+        const t = types[i % types.length];
+        toolName = `${p} ${t} Premium #${i}`;
     }
 
-    const mode = finalName.toLowerCase().includes("video") ? "video" : "image";
+    const mode = toolName.toLowerCase().includes("video") ? "video" : "image";
     
     const box = document.createElement('div');
     box.className = 'box';
-    // Har ek box ka design tere neon theme jaisa
     box.innerHTML = `
-        <div style="color:#a855f7; font-size:10px; font-weight:bold;">ID: ${i}</div>
-        <div style="margin:5px 0; font-weight:bold; font-size:13px; color:#fff;">${finalName}</div>
-        <div style="color:#22c55e; font-size:10px;">● 100% FREE ACCESS</div>
+        <div style="color:#a855f7; font-size:10px; font-weight:bold;">#${i}</div>
+        <div style="margin:5px 0; font-weight:bold; font-size:13px; color:#fff;">${toolName}</div>
+        <div style="color:#22c55e; font-size:10px;">● 100% UNLOCKED</div>
     `;
 
-    // Click function jo engine chalu karega
-    box.onclick = () => loadTool(finalName, mode);
+    box.onclick = () => loadTool(toolName, mode);
     grid.appendChild(box);
 }
