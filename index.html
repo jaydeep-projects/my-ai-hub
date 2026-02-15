@@ -1,84 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAYDEEP AI HUB - FREE PREMIUM ACCESS</title>
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; text-align: center; margin: 0; padding: 20px; }
-        .card { max-width: 500px; margin: auto; background: #111; padding: 25px; border-radius: 20px; border: 2px solid #a855f7; box-shadow: 0 0 30px rgba(168, 85, 247, 0.8); position: sticky; top: 10px; }
-        h1 { background: linear-gradient(to right, #b85cf6, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2.2rem; margin: 0; }
-        textarea { width: 90%; height: 100px; background: #222; color: #fff; border: 1px solid #444; border-radius: 10px; padding: 10px; margin-top: 15px; }
-        .btn { background: linear-gradient(135deg, #8b5cf6, #d946ef); color: white; border: none; padding: 15px; border-radius: 10px; cursor: pointer; width: 95%; font-weight: bold; margin-top: 10px; }
-        #result { margin-top: 20px; border-radius: 15px; overflow: hidden; border: 1px solid #333; min-height: 200px; background: #000; }
-        img, video { width: 100%; display: block; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; margin-top: 40px; }
-        .box { background: #111; border: 2px solid #333; border-radius: 15px; padding: 15px; transition: 0.3s; cursor: pointer; }
-        .box:hover { border-color: #a855f7; transform: scale(1.05); }
-    </style>
-</head>
-<body>
+// 1. Sabse pehle top 50 Asli Premium Brands ki list
+const premiumList = [
+    "ChatGPT-4 Plus", "Sora Video Pro", "Midjourney V6", "Claude 3.5", "Gemini Ultra", 
+    "ElevenLabs Max", "Runway Gen-3", "Pika Labs Elite", "DALL-E 3 VIP", "Flux-1 Pro",
+    "DeepSeek R1", "Leonardo VIP", "HeyGen Avatar", "Suno V4 Music", "Luma Dream Machine",
+    "Adobe Firefly", "Stable Diffusion 3", "Jasper Writing Pro", "Copy.ai VIP", "Descript Elite",
+    "Synthesia Pro", "Kaiber Video", "InVideo VIP", "Canva Magic", "Perplexity Pro",
+    "Grok VIP", "Mistral Large", "Character.ai Premium", "Phind Code Pro", "Gamma VIP",
+    "Veed.io Max", "Kling AI Video", "SeaArt Pro", "CivitAI VIP", "Playground Pro",
+    "Lexica Aperture", "BlueWillow VIP", "NightCafe Elite", "Artbreeder Pro", "StarryAI",
+    "Murf.ai Voice", "WellSaid Labs", "Speechify VIP", "Pictory Pro", "Lumen5 Max",
+    "ClipChamp VIP", "CapCut AI Pro", "Remove.bg Pro", "Topaz Photo AI", "Luminar Neo"
+];
 
-<div class="card">
-    <h1>JAYDEEP AI HUB 🚀</h1>
-    <p id="tool-name" style="color:#d946ef; font-weight:bold;">Active: AI Magic Engine</p>
-    <textarea id="prompt" placeholder="Yahan prompt likho (e.g. A futuristic city video)..."></textarea>
-    <button class="btn" onclick="generate()">GENERATE UNLIMITED</button>
-    <div id="result">
-        <p id="loading-text" style="padding:50px; color:#aaa;">Result yahan dikhega...</p>
-    </div>
-</div>
+// 2. Baki ke tools ke liye manual unique name logic
+const grid = document.getElementById('toolsGrid');
 
-<div class="grid" id="toolsGrid"></div>
-
-<script>
-    const result = document.getElementById('result');
-    const toolTitle = document.getElementById('tool-name');
-    let currentMode = "image";
-
-    // 1. Tool Load Logic
-    function loadTool(name, mode) {
-        window.scrollTo({top: 0, behavior: 'smooth'});
-        toolTitle.innerText = "Active: " + name;
-        currentMode = mode;
-    }
-
-    // 2. Asli Generation Logic (Connecting to Open Engines)
-    async function generate() {
-        const text = document.getElementById('prompt').value;
-        if(!text) return alert("Bhai prompt toh dalo!");
-
-        result.innerHTML = "<p style='padding:50px; color:#fbbf24;'>AI is working... ⚡</p>";
-
-        if(currentMode === "image") {
-            // Asli Image Engine (Flux/Stable Diffusion style)
-            const imgUrl = `https://pollinations.ai/p/${encodeURIComponent(text)}?width=1024&height=1024&nologo=true`;
-            result.innerHTML = `<img src="${imgUrl}" onload="this.style.opacity=1" style="opacity:0; transition:1s;">`;
-        } else {
-            // Asli Video Engine (Video playback loop for unlimited feel)
-            // Note: Real video API 3-5 min leti hai, isliye hum best AI preview load kar rahe hain
-            result.innerHTML = `
-                <video autoplay loop muted style="width:100%">
-                    <source src="https://shattereddisk.github.io/rickroll/rickroll.mp4" type="video/mp4">
-                </video>
-                <p style="color:#22c55e; padding:10px;">Unlimited Video Rendered!</p>`;
-        }
-    }
-
-    // 3. 5001 Boxes Generator
-    const toolsGrid = document.getElementById('toolsGrid');
-    const toolNames = ["Sora VIP", "Runway Pro", "Midjourney Elite", "Claude Paid", "Gemini Ultra"];
+for (let i = 1; i <= 5001; i++) {
+    let finalName;
     
-    for(let i=1; i<=5001; i++) {
-        const mode = i % 2 === 0 ? "video" : "image";
-        const name = toolNames[i-1] || `${mode.toUpperCase()} Tool #${i}`;
-        const box = document.createElement('div');
-        box.className = 'box';
-        box.innerHTML = `<small>#${i}</small><br><strong>${name}</strong><br><span style="color:#22c55e; font-size:10px;">● FREE</span>`;
-        box.onclick = () => loadTool(name, mode);
-        toolsGrid.appendChild(box);
+    if (i <= 50) {
+        // Pehle 50 tools ek-ek karke asli naam uthayenge
+        finalName = premiumList[i-1];
+    } else {
+        // Baki tools ke liye unique category + ID (Jaise tune maanga tha)
+        const types = ["Video-Master", "Image-Pro", "Chat-Bot-VIP", "Code-Expert", "Audio-Elite", "SEO-Turbo", "Content-Gen"];
+        const currentType = types[i % types.length];
+        finalName = `${currentType} Tool #${i}`; // Har ek ka naam alag (Tool #51, #52...)
     }
-</script>
 
-</body>
-</html>
+    const mode = finalName.toLowerCase().includes("video") ? "video" : "image";
+    
+    const box = document.createElement('div');
+    box.className = 'box';
+    // Har ek box ka design tere neon theme jaisa
+    box.innerHTML = `
+        <div style="color:#a855f7; font-size:10px; font-weight:bold;">ID: ${i}</div>
+        <div style="margin:5px 0; font-weight:bold; font-size:13px; color:#fff;">${finalName}</div>
+        <div style="color:#22c55e; font-size:10px;">● 100% FREE ACCESS</div>
+    `;
+
+    // Click function jo engine chalu karega
+    box.onclick = () => loadTool(finalName, mode);
+    grid.appendChild(box);
+}
