@@ -6,73 +6,106 @@
     <title>JAYEEP AI HUB</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        body { font-family: 'Poppins', sans-serif; } /* Naya font */
         .loader { border: 6px solid #f3f3f3; border-top: 6px solid #3b82f6; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; margin: auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="bg-gray-50">
-    <header class="bg-blue-600 text-white p-6 text-center shadow-md">
-        <h1 class="text-3xl font-bold italic">JAYEEP AI HUB</h1>
-        <p class="text-sm opacity-90">Instant Premium AI Tools</p>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <header class="bg-blue-700 text-white p-6 text-center shadow-lg">
+        <h1 class="text-4xl font-extrabold italic tracking-wide">JAYEEP AI HUB</h1>
+        <p class="text-md opacity-90 mt-2">Create & Explore AI Magic</p>
     </header>
 
     <main class="p-4 max-w-lg mx-auto">
-        <div class="bg-white p-2 mb-6 text-center rounded border border-gray-200 shadow-sm">
-            <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Sponsored</p>
-            <div id="ad-top" class="min-h-[50px] flex items-center justify-center text-gray-400 italic text-sm">
+        <div class="bg-white p-3 mb-6 text-center rounded-xl border border-gray-200 shadow-md">
+            <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-2">ADVERTISEMENT</p>
+            <div id="ad-top" class="min-h-[60px] flex items-center justify-center text-gray-400 italic text-sm">
                 Ads Loading...
             </div>
         </div>
 
-        <section class="bg-white p-8 rounded-3xl shadow-2xl border border-blue-50">
-            <h2 class="text-2xl font-black mb-6 text-center text-gray-800">🚀 Fast AI Image Maker</h2>
+        <section class="bg-white p-8 rounded-3xl shadow-2xl border border-blue-100 transform hover:scale-102 transition-transform duration-300">
+            <h2 class="text-3xl font-black mb-6 text-center text-gray-900 flex items-center justify-center">
+                <span class="mr-3">✨</span> AI Image Studio
+            </h2>
             
-            <input id="prompt" type="text" placeholder="Type 'Red Car' or 'Lion'..." 
-                class="w-full p-4 border-2 border-gray-100 rounded-2xl mb-4 focus:border-blue-500 outline-none text-lg bg-gray-50 transition-all">
+            <input id="prompt" type="text" placeholder="Describe your image (e.g., 'Flying car in space')" 
+                class="w-full p-4 border-2 border-blue-200 rounded-2xl mb-5 focus:border-blue-500 outline-none text-lg bg-gray-50 transition-all duration-200">
             
-            <button onclick="generate()" 
-                class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-xl hover:bg-blue-700 active:scale-95 transition-transform shadow-lg shadow-blue-200">
-                GENERATE PHOTO ✨
+            <button onclick="generateImage()" 
+                class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 rounded-2xl font-black text-xl hover:from-blue-700 hover:to-indigo-700 active:scale-95 transition-transform duration-200 shadow-lg shadow-blue-300">
+                GENERATE IMAGE 🖼️
             </button>
 
             <div id="loading" class="mt-10 text-center hidden">
                 <div class="loader"></div>
-                <p class="mt-4 text-blue-600 font-bold animate-bounce text-lg">AI is Creating... 10s</p>
+                <p class="mt-4 text-blue-700 font-bold animate-pulse text-lg">AI is painting... Please wait</p>
             </div>
 
             <div id="result" class="mt-10 text-center hidden">
-                <img id="out-img" src="" class="mx-auto rounded-2xl shadow-2xl border-4 border-white transition-all duration-500">
-                <a id="dl-link" href="#" download="ai_jaydeep.jpg" 
-                    class="mt-6 inline-block bg-green-500 text-white px-10 py-4 rounded-full font-black text-lg shadow-xl hover:bg-green-600 transition-colors">
-                    DOWNLOAD 📥
+                <img id="generated-image" src="" alt="AI Generated Image" 
+                    class="mx-auto rounded-2xl shadow-xl border-4 border-white mb-6 transform hover:scale-105 transition-transform duration-300 max-w-full h-auto">
+                <a id="download-link" href="#" download="jaydeep_ai_image.jpg" 
+                    class="inline-block bg-gradient-to-r from-green-500 to-teal-500 text-white px-10 py-4 rounded-full font-black text-lg shadow-lg hover:from-green-600 hover:to-teal-600 transition-colors duration-200">
+                    DOWNLOAD 🚀
                 </a>
             </div>
         </section>
+
+        <div class="bg-white p-3 mt-6 text-center rounded-xl border border-gray-200 shadow-md">
+            <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-2">ADVERTISEMENT</p>
+            <div id="ad-bottom" class="min-h-[60px] flex items-center justify-center text-gray-400 italic text-sm">
+                Ads Loading...
+            </div>
+        </div>
     </main>
 
+    <footer class="text-center text-gray-600 text-sm mt-10 p-4">
+        &copy; 2024 JAYEEP AI HUB. All rights reserved.
+    </footer>
+
     <script>
-        function generate() {
-            const p = document.getElementById('prompt').value;
-            const l = document.getElementById('loading');
-            const r = document.getElementById('result');
-            const img = document.getElementById('out-img');
+        function generateImage() {
+            const prompt = document.getElementById('prompt').value;
+            const loading = document.getElementById('loading');
+            const resultDiv = document.getElementById('result');
+            const generatedImage = document.getElementById('generated-image');
+            const downloadLink = document.getElementById('download-link');
 
-            if(!p) { alert("Bhai, kuch likho!"); return; }
+            if (!prompt) {
+                alert("Bhai, kuch likhna padega na!");
+                return;
+            }
 
-            l.classList.remove('hidden');
-            r.classList.add('hidden');
+            loading.classList.remove('hidden');
+            resultDiv.classList.add('hidden');
 
-            // High-Speed Direct API
-            const url = "https://image.pollinations.ai/prompt/" + encodeURIComponent(p) + "?width=800&height=800&nologo=true&seed=" + Math.random();
+            // Using Pollinations AI with Stable Diffusion model for better reliability
+            const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=768&height=768&nologo=true&seed=${Math.random()}`;
 
-            const testImg = new Image();
-            testImg.src = url;
-            testImg.onload = function() {
-                img.src = url;
-                document.getElementById('dl-link').href = url;
-                l.classList.add('hidden');
-                r.classList.remove('hidden');
+            const img = new Image();
+            img.src = imageUrl;
+
+            img.onload = function() {
+                generatedImage.src = imageUrl;
+                downloadLink.href = imageUrl;
+                loading.classList.add('hidden');
+                resultDiv.classList.remove('hidden');
             };
+
+            img.onerror = function() {
+                alert("Image banate waqt error ho gayi ya server busy hai. Ek baar phir se try karo.");
+                loading.classList.add('hidden');
+            };
+
+            // Timeout in case image takes too long (e.g., 25 seconds)
+            setTimeout(() => {
+                if (!loading.classList.contains('hidden')) {
+                    alert("Image banane mein zyada time lag raha hai. Server busy ho sakta hai. Dobara koshish karein!");
+                    loading.classList.add('hidden');
+                }
+            }, 25000); // 25 seconds timeout
         }
     </script>
 </body>
