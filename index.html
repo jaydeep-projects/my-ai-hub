@@ -5,69 +5,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JAYDEEP AI HUB 🚀</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; text-align: center; margin: 0; padding: 20px; }
-        .card { max-width: 450px; margin: auto; background: #111; padding: 25px; border-radius: 20px; border: 2px solid #a855f7; box-shadow: 0 0 30px rgba(168, 85, 247, 0.8); position: sticky; top: 10px; z-index: 1000; }
-        h1 { background: linear-gradient(to right, #b85cf6, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2.2rem; margin: 0; }
-        textarea { width: 95%; height: 80px; background: #222; color: #fff; border: 1px solid #444; border-radius: 10px; padding: 10px; margin-top: 15px; outline: none; }
-        .gen-btn { background: linear-gradient(135deg, #8b5cf6, #d946ef); color: white; border: none; padding: 12px; border-radius: 10px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; transition: 0.3s; }
-        .gen-btn:hover { transform: scale(1.02); }
+        /* Spacing ko theek karne ke liye naya style */
+        body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; text-align: center; margin: 0; padding: 10px; }
+        
+        .main-wrapper { padding-top: 20px; display: flex; flex-direction: column; align-items: center; }
+
+        .card { 
+            width: 90%; max-width: 450px; background: #111; padding: 25px; 
+            border-radius: 20px; border: 2px solid #a855f7; 
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.8); 
+            margin-bottom: 40px; /* Grid se door rakhne ke liye */
+            position: relative; z-index: 10;
+        }
+
+        h1 { background: linear-gradient(to right, #b85cf6, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2rem; margin: 0; }
+        
+        textarea { width: 90%; height: 70px; background: #222; color: #fff; border: 1px solid #444; border-radius: 10px; padding: 10px; margin-top: 15px; outline: none; }
+        
+        .gen-btn { background: linear-gradient(135deg, #8b5cf6, #d946ef); color: white; border: none; padding: 12px; border-radius: 10px; cursor: pointer; width: 95%; font-weight: bold; margin-top: 10px; }
+        
         #upload-section { display: none; margin-top: 10px; border: 1px dashed #555; padding: 10px; border-radius: 10px; }
-        #result { margin-top: 20px; border-radius: 15px; overflow: hidden; border: 1px solid #333; min-height: 150px; background: #000; }
+        
+        #result { margin-top: 15px; border-radius: 10px; overflow: hidden; border: 1px solid #333; min-height: 100px; background: #000; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #555; }
         img, video { width: 100%; border-radius: 10px; }
-        .mega-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; margin-top: 40px; }
-        .tool-box { background: #111; border: 1px solid #333; border-radius: 15px; padding: 15px; transition: 0.3s; cursor: pointer; border-bottom: 3px solid #a855f7; }
-        .tool-box:hover { border-color: #d946ef; transform: translateY(-5px); }
+
+        /* Grid Layout Fix */
+        .mega-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); 
+            gap: 12px; 
+            width: 100%; 
+            max-width: 1200px; 
+            padding-bottom: 50px;
+        }
+
+        .tool-box { 
+            background: #111; border: 1px solid #333; border-radius: 12px; 
+            padding: 12px; cursor: pointer; border-bottom: 3px solid #a855f7; 
+            transition: 0.2s;
+        }
+        .tool-box:hover { transform: translateY(-3px); border-color: #d946ef; }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h1>JAYDEEP AI HUB 🚀</h1>
-    <p id="tool-name" style="color:#d946ef; font-weight:bold; font-size: 14px;">Unlimited Free Premium Access</p>
-    
-    <div id="upload-section">
-        <p style="font-size:10px; color:#aaa;">Upload Image for Image-to-Video:</p>
-        <input type="file" id="imgInput" accept="image/*" style="font-size: 10px;">
+<div class="main-wrapper">
+    <div class="card">
+        <h1>JAYDEEP AI HUB 🚀</h1>
+        <p id="tool-active" style="color:#d946ef; font-weight:bold; font-size: 12px; margin-top:5px;">Select a Tool Below</p>
+        
+        <div id="upload-section">
+            <input type="file" id="fileInput" accept="image/*" style="font-size: 10px;">
+        </div>
+        
+        <textarea id="promptInput" placeholder="Describe your magic here..."></textarea>
+        <button class="gen-btn" onclick="runMagic()">GENERATE NOW (FREE)</button>
+        <div id="result">Ready to Generate...</div>
     </div>
-    
-    <textarea id="prompt" placeholder="Yahan prompt likho (e.g. A flying car)..."></textarea>
-    <button class="gen-btn" onclick="generate()">GENERATE MAGIC (FREE)</button>
-    <div id="result"><p style="padding:30px; color:#555;">Ready to Generate...</p></div>
+
+    <div class="mega-grid" id="toolsGrid"></div>
 </div>
 
-<div class="mega-grid" id="megaGrid"></div>
-
 <script>
-    const grid = document.getElementById('megaGrid');
-    const toolCategories = ["Text-to-Video", "Image-to-Video", "Text-to-Image", "AI-Video-Editor", "Portrait-to-3D", "Voice-to-Video"];
-    const levels = ["Premium", "Elite", "Pro", "Ultra", "Master", "VIP"];
+    const grid = document.getElementById('toolsGrid');
+    const categories = ["Text-to-Video", "Image-to-Video", "AI-Animator", "Portrait-to-3D", "Text-to-Image", "Voice-to-Video"];
+    const tags = ["Elite", "Pro", "Premium", "Ultra", "Master", "VIP"];
 
-    // 5000 UNIQUE TOOLS LOAD KARNA
+    // Tools Generate Karein
     for (let i = 1; i <= 5000; i++) {
-        const cat = toolCategories[i % toolCategories.length];
-        const lvl = levels[i % levels.length];
-        const name = `${lvl} ${cat} #${i}`;
+        const cat = categories[i % categories.length];
+        const tag = tags[i % tags.length];
+        const name = `${tag} ${cat} #${i}`;
 
         const box = document.createElement('div');
         box.className = 'tool-box';
-        box.innerHTML = `<small style="color:#a855f7">#${i}</small><br><strong>${name}</strong><br><span style="color:#22c55e; font-size:9px;">● UNLOCKED FREE</span>`;
+        box.innerHTML = `
+            <div style="color:#a855f7; font-size:10px; font-weight:bold;">#${i}</div>
+            <div style="margin:5px 0; font-weight:bold; font-size:11px;">${name}</div>
+            <div style="color:#22c55e; font-size:9px;">● UNLOCKED</div>
+        `;
         
         box.onclick = () => {
             window.scrollTo({top: 0, behavior: 'smooth'});
-            document.getElementById('tool-name').innerText = "Active: " + name;
-            // Agar tool mein 'Image' naam hai toh upload button dikhega
-            document.getElementById('upload-section').style.display = name.includes("Image") ? "block" : "none";
+            document.getElementById('tool-active').innerText = name;
+            document.getElementById('upload-section').style.display = name.includes("Image") || name.includes("Animator") ? "block" : "none";
         };
         grid.appendChild(box);
     }
 
-    async function generate() {
-        const p = document.getElementById('prompt').value;
+    // Generator Function
+    async function runMagic() {
+        const p = document.getElementById('promptInput').value;
         const res = document.getElementById('result');
-        if(!p) return alert("Bhai kuch toh likho!");
+        if(!p) return alert("Bhai prompt dalo!");
         
-        res.innerHTML = "<p style='padding:40px; color:#fbbf24'>AI Engine Processing... ⚡</p>";
-        // Real Image Generation API
+        res.innerHTML = "AI is working... ⚡";
         const url = `https://pollinations.ai/p/${encodeURIComponent(p)}?width=1024&height=1024&nologo=true`;
         
         setTimeout(() => { res.innerHTML = `<img src="${url}">`; }, 1500);
