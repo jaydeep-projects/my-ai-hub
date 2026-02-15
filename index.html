@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAYDEEP AI HUB - Ultra Fast</title>
+    <title>JAYDEEP AI HUB - Ultra Pro</title>
     <style>
         body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; text-align: center; padding: 20px; }
         .card { max-width: 400px; margin: auto; background: #111; padding: 25px; border-radius: 20px; border: 2px solid #d946ef; box-shadow: 0 0 30px #d946ef; }
-        h1 { color: #d946ef; font-size: 26px; text-shadow: 0 0 10px #d946ef; }
+        h1 { background: linear-gradient(to right, #8b5cf6, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         input { width: 90%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 1px solid #333; background: #222; color: #fff; outline: none; }
         button { background: linear-gradient(135deg, #8b5cf6, #d946ef); color: white; border: none; padding: 15px; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; }
         #output { margin-top: 20px; min-height: 200px; display: flex; align-items: center; justify-content: center; }
@@ -18,7 +18,7 @@
 <body>
     <div class="card">
         <h1>JAYDEEP AI HUB 🚀</h1>
-        <p style="font-size: 11px; color: #aaa;">Unlimited HD Mode - No Errors</p>
+        <p style="font-size: 11px; color: #aaa;">Unlimited HD Mode - High Speed</p>
         <input type="text" id="p" placeholder="Enter anything (e.g. BMW Car)...">
         <button onclick="gen()">SHOW HD IMAGE</button>
         <div id="output"></div>
@@ -28,13 +28,12 @@
     function gen() {
         const p = document.getElementById('p').value;
         const o = document.getElementById('output');
-        if(!p) return alert("Kuch likho bhai!");
+        if(!p) return alert("Kuch toh dalo bhai!");
 
-        o.innerHTML = "<p style='color:#fbbf24'>Searching HD Library... ⚡</p>";
+        o.innerHTML = "<p style='color:#fbbf24'>Connecting to HD Engine... ⚡</p>";
 
-        // Direct Ultra-HD Image Engine (No AI Busy Errors)
-        const timestamp = new Date().getTime();
-        const url = `https://source.unsplash.com/featured/1024x1024/?${p.replace(/\s+/g, ',')}&sig=${timestamp}`;
+        // Using a more stable direct image source
+        const url = `https://loremflickr.com/1024/1024/${p.replace(/\s+/g, ',')}`;
         
         const img = new Image();
         img.src = url;
@@ -42,7 +41,7 @@
             o.innerHTML = `<img src="${url}">`;
         };
         img.onerror = () => {
-            o.innerHTML = "<p style='color:red'>Try another word!</p>";
+            o.innerHTML = "<p style='color:red'>Server busy, try again!</p>";
         };
     }
 </script>
