@@ -1,91 +1,61 @@
-</script>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAYDEEP AI HUB 🚀</title>
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; text-align: center; margin: 0; padding: 10px; }
-        .card { width: 90%; max-width: 450px; background: #111; padding: 25px; border-radius: 20px; border: 2px solid #a855f7; box-shadow: 0 0 30px rgba(168, 85, 247, 0.8); margin: 20px auto; position: sticky; top: 10px; z-index: 1000; }
-        h1 { background: linear-gradient(to right, #b85cf6, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2rem; margin: 0; }
-        
-        /* Upload & Input Styling */
-        .input-group { margin-top: 15px; background: #222; padding: 10px; border-radius: 10px; border: 1px solid #444; }
-        input[type="file"] { font-size: 12px; color: #aaa; width: 100%; margin-bottom: 10px; }
-        textarea { width: 95%; height: 60px; background: #000; color: #fff; border: 1px solid #333; border-radius: 8px; padding: 8px; outline: none; }
-        
-        .gen-btn { background: linear-gradient(135deg, #8b5cf6, #d946ef); color: white; border: none; padding: 12px; border-radius: 10px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; }
-        #result { margin-top: 15px; border-radius: 10px; min-height: 100px; background: #000; border: 1px solid #333; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        img, video { width: 100%; }
+// 1. ASLI PREMIUM NAMES KI MEGA LIST
+const topBrands = ["Sora VIP", "Midjourney V6", "ChatGPT-4 Plus", "ElevenLabs Max", "Runway Gen-3", "Luma Dream", "Pika Labs Pro", "Claude 3.5", "Flux-1 Elite", "DeepSeek R1", "Leonardo VIP", "HeyGen Pro", "Suno Music V4", "Adobe Firefly", "Stable Diffusion"];
 
-        .mega-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; padding: 20px; }
-        .tool-box { background: #111; border: 1px solid #333; border-radius: 12px; padding: 15px; cursor: pointer; border-bottom: 3px solid #a855f7; transition: 0.2s; }
-        .tool-box:hover { transform: translateY(-5px); border-color: #d946ef; }
-    </style>
-</head>
-<body>
+// 2. UNIQUE NAME MAKER (5000 TOOLS)
+const levels = ["Ultra", "Elite", "Pro", "VIP", "Master", "Premium", "Turbo", "Hyper", "Gold", "Alpha", "Omega", "Prime"];
+const tools = ["Text-to-Video", "Image-Gen", "Video-Editor", "Voice-Magic", "Portrait-3D", "Code-Expert", "Script-Writer", "SEO-Sniper", "Avatar-Maker", "Motion-Gen", "Background-Fix", "Deep-Fake-Safe"];
 
-<div class="card">
-    <h1>JAYDEEP AI HUB 🚀</h1>
-    <p id="tool-active" style="color:#d946ef; font-weight:bold; font-size: 13px;">Premium Unlocked</p>
+const grid = document.getElementById('toolsGrid');
+
+for (let i = 0; i < 5000; i++) {
+    let finalName;
     
-    <div class="input-group">
-        <label style="font-size: 11px; display: block; margin-bottom: 5px; color: #a855f7;">Upload Photo/Video (Optional):</label>
-        <input type="file" id="fileInput" accept="image/*,video/*">
-        <textarea id="promptInput" placeholder="Describe your magic here..."></textarea>
-    </div>
-    
-    <button class="gen-btn" onclick="startMagic()">GENERATE (FREE)</button>
-    <div id="result">Result will appear here...</div>
-</div>
-
-<div class="mega-grid" id="toolsGrid"></div>
-
-<script>
-    const grid = document.getElementById('toolsGrid');
-    const brands = ["Sora VIP", "Midjourney", "ChatGPT-4", "ElevenLabs", "Runway Gen-3", "Luma Dream", "Pika Labs", "Claude 3.5"];
-    const types = ["Text-to-Video", "Image-to-Video", "AI-Animator", "Voice-Gen", "Portrait-3D", "Code-Expert"];
-    const levels = ["Pro", "Elite", "Ultra", "VIP", "Master", "Premium"];
-
-    // 5000 Unique Tools (Bina # Number ke)
-    for (let i = 0; i < 5000; i++) {
-        let name = i < brands.length ? brands[i] : `${levels[i % levels.length]} ${types[i % types.length]}`;
-        const box = document.createElement('div');
-        box.className = 'tool-box';
-        box.innerHTML = `<div style="font-weight:bold; font-size:12px;">${name}</div><div style="color:#22c55e; font-size:9px; margin-top:5px;">● FREE ACCESS</div>`;
-        box.onclick = () => {
-            window.scrollTo({top: 0, behavior: 'smooth'});
-            document.getElementById('tool-active').innerText = "Active: " + name;
-        };
-        grid.appendChild(box);
+    if (i < topBrands.length) {
+        // Shuruat ke 15 tools asli brands honge
+        finalName = topBrands[i];
+    } else {
+        // Baki 4985 tools ke liye Unique Mix logic (Taaki names repeat na ho)
+        const lvl = levels[i % levels.length];
+        // Math.floor use karke category ko har baar shift karenge
+        const typ = tools[(i + Math.floor(i / levels.length)) % tools.length];
+        finalName = `${lvl} ${typ} #${i + 1}`; 
     }
 
-    async function startMagic() {
-        const p = document.getElementById('promptInput').value;
-        const file = document.getElementById('fileInput').files[0];
-        const res = document.getElementById('result');
-        
-        if(!p && !file) return alert("Bhai, kuch toh upload karo ya likho!");
-        
-        res.innerHTML = "Processing Magic... ⚡";
-        
-        if(file) {
-            // Agar file upload ki hai toh use dikhayenge
-            const url = URL.createObjectURL(file);
-            if(file.type.includes("video")) {
-                res.innerHTML = `<video src="${url}" controls autoplay></video>`;
-            } else {
-                res.innerHTML = `<img src="${url}"><p style="font-size:10px; color:#22c55e;">Processing AI Magic on your Image...</p>`;
-            }
-        } else {
-            // Sirf text hai toh AI Image generate karega
-            const imgUrl = `https://pollinations.ai/p/${encodeURIComponent(p)}?width=1024&height=1024&nologo=true`;
-            setTimeout(() => { res.innerHTML = `<img src="${imgUrl}">`; }, 1500);
-        }
+    const box = document.createElement('div');
+    box.className = 'tool-box';
+    box.innerHTML = `
+        <div style="font-weight:bold; font-size:12px; color:#fff;">${finalName}</div>
+        <div style="color:#22c55e; font-size:9px; margin-top:5px;">● FREE ACCESS</div>
+    `;
+
+    box.onclick = () => {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+        document.getElementById('tool-active').innerText = "Active: " + finalName;
+    };
+    grid.appendChild(box);
+}
+
+// 3. ASLI UPLOAD & GENERATE ENGINE
+async function startMagic() {
+    const p = document.getElementById('promptInput').value;
+    const file = document.getElementById('fileInput').files[0];
+    const res = document.getElementById('result');
+    
+    if(!p && !file) return alert("Bhai, kuch toh dalo!");
+    
+    res.innerHTML = "<p style='color:#a855f7; padding:20px;'>AI Engine Processing... ⚡</p>";
+    
+    if(file) {
+        // REAL UPLOAD PREVIEW
+        const url = URL.createObjectURL(file);
+        res.innerHTML = file.type.includes("video") 
+            ? `<video src="${url}" controls autoplay style="width:100%; border-radius:10px;"></video>`
+            : `<img src="${url}" style="width:100%; border-radius:10px;"><p style="font-size:10px; color:#22c55e; margin-top:5px;">AI converting your image...</p>`;
+    } else {
+        // TEXT-TO-IMAGE GENERATION
+        const imgUrl = `https://pollinations.ai/p/${encodeURIComponent(p)}?width=1024&height=1024&nologo=true`;
+        const tempImg = new Image();
+        tempImg.src = imgUrl;
+        tempImg.onload = () => { res.innerHTML = `<img src="${imgUrl}" style="width:100%; border-radius:10px;">`; };
     }
-</script>
-</body>
-</html>
-</body>
-</html>
+}
